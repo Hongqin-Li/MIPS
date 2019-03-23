@@ -1,0 +1,578 @@
+
+*** Running vivado
+    with args -log top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+
+
+****** Vivado v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source top.tcl -notrace
+Command: synth_design -top top -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 16127 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1356.020 ; gain = 0.000 ; free physical = 575 ; free virtual = 7345
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:60]
+INFO: [Synth 8-6157] synthesizing module 'clkdiv' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:146]
+INFO: [Synth 8-6155] done synthesizing module 'clkdiv' (1#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:146]
+WARNING: [Synth 8-350] instance 'cd' of module 'clkdiv' requires 5 connections, but only 2 given [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:71]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:73]
+INFO: [Synth 8-6157] synthesizing module 'MIPSTop' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:165]
+INFO: [Synth 8-6157] synthesizing module 'MIPS' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:326]
+INFO: [Synth 8-6157] synthesizing module 'Datapath' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:347]
+INFO: [Synth 8-6157] synthesizing module 'PCReg' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:538]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'PCReg' (2#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:538]
+INFO: [Synth 8-6157] synthesizing module 'Adder' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:498]
+INFO: [Synth 8-6155] done synthesizing module 'Adder' (3#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:498]
+INFO: [Synth 8-6157] synthesizing module 'ShiftLeft2' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:550]
+INFO: [Synth 8-6155] done synthesizing module 'ShiftLeft2' (4#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:550]
+INFO: [Synth 8-6157] synthesizing module 'Mux2' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:530]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Mux2' (5#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:530]
+INFO: [Synth 8-6157] synthesizing module 'Mux2__parameterized0' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:530]
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Mux2__parameterized0' (5#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:530]
+INFO: [Synth 8-6157] synthesizing module 'RegisterFile' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:504]
+INFO: [Synth 8-6085] Hierarchical reference on 'RegCell' stops possible memory inference [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:512]
+INFO: [Synth 8-6155] done synthesizing module 'RegisterFile' (6#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:504]
+INFO: [Synth 8-6157] synthesizing module 'SignExtend' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:558]
+INFO: [Synth 8-6155] done synthesizing module 'SignExtend' (7#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:558]
+INFO: [Synth 8-6157] synthesizing module 'ALU' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:565]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:581]
+INFO: [Synth 8-6155] done synthesizing module 'ALU' (8#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:565]
+INFO: [Synth 8-6155] done synthesizing module 'Datapath' (9#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:347]
+INFO: [Synth 8-6157] synthesizing module 'ControlUnit' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:403]
+INFO: [Synth 8-6155] done synthesizing module 'ControlUnit' (10#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:403]
+INFO: [Synth 8-6155] done synthesizing module 'MIPS' (11#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:326]
+INFO: [Synth 8-6157] synthesizing module 'IMem' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:182]
+	Parameter r0 bound to: 5'b00000 
+	Parameter r1 bound to: 5'b00001 
+	Parameter r2 bound to: 5'b00010 
+	Parameter r3 bound to: 5'b00011 
+	Parameter LH bound to: 6'b100001 
+	Parameter LUI bound to: 6'b001111 
+INFO: [Synth 8-6155] done synthesizing module 'IMem' (12#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:182]
+INFO: [Synth 8-6157] synthesizing module 'DMem' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:259]
+INFO: [Synth 8-6155] done synthesizing module 'DMem' (13#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:259]
+INFO: [Synth 8-6155] done synthesizing module 'MIPSTop' (14#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:165]
+INFO: [Synth 8-6157] synthesizing module 'display' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:90]
+WARNING: [Synth 8-350] instance 'cc' of module 'clkdiv' requires 5 connections, but only 2 given [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:101]
+INFO: [Synth 8-226] default block is never used [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:124]
+INFO: [Synth 8-6155] done synthesizing module 'display' (15#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:90]
+INFO: [Synth 8-6085] Hierarchical reference on 'RegCell' stops possible memory inference [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:512]
+INFO: [Synth 8-6155] done synthesizing module 'top' (16#1) [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:60]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[31]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[30]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[29]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[28]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[27]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[26]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[25]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[24]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[23]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[22]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[21]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[20]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[19]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[18]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[17]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[16]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[15]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[14]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[13]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[12]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[11]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[10]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[9]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[8]
+WARNING: [Synth 8-3331] design IMem has unconnected port addr[1]
+WARNING: [Synth 8-3331] design IMem has unconnected port addr[0]
+WARNING: [Synth 8-3331] design ControlUnit has unconnected port OF
+WARNING: [Synth 8-3331] design ShiftLeft2 has unconnected port a[31]
+WARNING: [Synth 8-3331] design ShiftLeft2 has unconnected port a[30]
+WARNING: [Synth 8-3331] design Datapath has unconnected port MemWrite
+WARNING: [Synth 8-3331] design top has unconnected port SW[15]
+WARNING: [Synth 8-3331] design top has unconnected port SW[14]
+WARNING: [Synth 8-3331] design top has unconnected port SW[13]
+WARNING: [Synth 8-3331] design top has unconnected port SW[12]
+WARNING: [Synth 8-3331] design top has unconnected port SW[11]
+WARNING: [Synth 8-3331] design top has unconnected port SW[10]
+WARNING: [Synth 8-3331] design top has unconnected port SW[9]
+WARNING: [Synth 8-3331] design top has unconnected port SW[8]
+WARNING: [Synth 8-3331] design top has unconnected port SW[7]
+WARNING: [Synth 8-3331] design top has unconnected port SW[6]
+WARNING: [Synth 8-3331] design top has unconnected port SW[5]
+WARNING: [Synth 8-3331] design top has unconnected port SW[4]
+WARNING: [Synth 8-3331] design top has unconnected port SW[3]
+WARNING: [Synth 8-3331] design top has unconnected port SW[2]
+WARNING: [Synth 8-3331] design top has unconnected port SW[1]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1373.391 ; gain = 17.371 ; free physical = 583 ; free virtual = 7353
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin dis:d0[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d0[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d0[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d0[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d1[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d1[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d1[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d1[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d2[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d2[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d2[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d2[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d3[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d3[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d3[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d3[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d4[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d4[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d4[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d4[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d5[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d5[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d5[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d5[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d6[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d6[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d6[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d6[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d7[3] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d7[2] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d7[1] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+WARNING: [Synth 8-3295] tying undriven pin dis:d7[0] to constant 0 [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:75]
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1373.391 ; gain = 17.371 ; free physical = 582 ; free virtual = 7353
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1373.391 ; gain = 17.371 ; free physical = 582 ; free virtual = 7353
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/lhq/Workspace/computer-architecture-laboratory/mips-sc/mips-sc.srcs/constrs_1/imports/computer-architecture-laboratory/mipssc.xdc]
+Finished Parsing XDC File [/home/lhq/Workspace/computer-architecture-laboratory/mips-sc/mips-sc.srcs/constrs_1/imports/computer-architecture-laboratory/mipssc.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/lhq/Workspace/computer-architecture-laboratory/mips-sc/mips-sc.srcs/constrs_1/imports/computer-architecture-laboratory/mipssc.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1721.266 ; gain = 0.000 ; free physical = 308 ; free virtual = 7078
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1721.266 ; gain = 0.000 ; free physical = 309 ; free virtual = 7079
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1721.266 ; gain = 0.000 ; free physical = 309 ; free virtual = 7079
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1721.266 ; gain = 0.000 ; free physical = 309 ; free virtual = 7079
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 394 ; free virtual = 7162
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 394 ; free virtual = 7162
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 396 ; free virtual = 7164
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5545] ROM "ZF" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "ctl" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "instr" won't be mapped to RAM because address size (30) is larger than maximum supported(25)
+WARNING: [Synth 8-327] inferring latch for variable 'ALUResult_reg' [/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v:576]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:15 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 386 ; free virtual = 7154
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 3     
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	               32 Bit    Registers := 33    
+	                8 Bit    Registers := 1     
++---RAMs : 
+	               2K Bit         RAMs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 45    
+	   8 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 3     
+	   2 Input     30 Bit        Muxes := 1     
+	   4 Input     30 Bit        Muxes := 1     
+	  17 Input     10 Bit        Muxes := 1     
+	  23 Input     10 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   9 Input      4 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 3     
+	  15 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module PCReg 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+Module Adder 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+Module Mux2 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+Module Mux2__parameterized0 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      5 Bit        Muxes := 1     
+Module RegisterFile 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 32    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 39    
+Module ALU 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 2     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+	  15 Input      1 Bit        Muxes := 1     
+Module Datapath 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+Module ControlUnit 
+Detailed RTL Component Info : 
++---Muxes : 
+	  17 Input     10 Bit        Muxes := 1     
+	  23 Input     10 Bit        Muxes := 1     
+	   3 Input      2 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module IMem 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     30 Bit        Muxes := 1     
+	   4 Input     30 Bit        Muxes := 1     
+Module DMem 
+Detailed RTL Component Info : 
++---RAMs : 
+	               2K Bit         RAMs := 1     
++---Muxes : 
+	   8 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 3     
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module display 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+	   9 Input      4 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5545] ROM "dp/alu/ZF" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "cu/ctl" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[31]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[30]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[29]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[28]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[27]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[26]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[25]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[24]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[23]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[22]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[21]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[20]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[19]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[18]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[17]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[16]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[15]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[14]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[13]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[12]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[11]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[10]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[9]
+WARNING: [Synth 8-3331] design DMem has unconnected port addr[8]
+WARNING: [Synth 8-3331] design IMem has unconnected port addr[1]
+WARNING: [Synth 8-3331] design IMem has unconnected port addr[0]
+WARNING: [Synth 8-3331] design top has unconnected port SW[15]
+WARNING: [Synth 8-3331] design top has unconnected port SW[14]
+WARNING: [Synth 8-3331] design top has unconnected port SW[13]
+WARNING: [Synth 8-3331] design top has unconnected port SW[12]
+WARNING: [Synth 8-3331] design top has unconnected port SW[11]
+WARNING: [Synth 8-3331] design top has unconnected port SW[10]
+WARNING: [Synth 8-3331] design top has unconnected port SW[9]
+WARNING: [Synth 8-3331] design top has unconnected port SW[8]
+WARNING: [Synth 8-3331] design top has unconnected port SW[7]
+WARNING: [Synth 8-3331] design top has unconnected port SW[6]
+WARNING: [Synth 8-3331] design top has unconnected port SW[5]
+WARNING: [Synth 8-3331] design top has unconnected port SW[4]
+WARNING: [Synth 8-3331] design top has unconnected port SW[3]
+WARNING: [Synth 8-3331] design top has unconnected port SW[2]
+WARNING: [Synth 8-3331] design top has unconnected port SW[1]
+INFO: [Synth 8-6851] RAM (mt/dmem/RAM_reg) has partial Byte Wide Write Enable pattern, however no output register found in fanout of RAM. Recommended to use supported Byte Wide Write Enable template. 
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[31]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[30]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[29]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[28]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[27]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[26]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[25]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[24]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[23]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[22]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[21]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[20]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[19]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[18]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[17]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[16]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[15]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[14]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[13]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[12]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[11]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[10]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[9]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[8]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[7]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[6]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[5]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[4]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[3]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[2]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[1]) is unused and will be removed from module top.
+WARNING: [Synth 8-3332] Sequential element (mt/mips/dp/alu/ALUResult_reg[0]) is unused and will be removed from module top.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:27 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 347 ; free virtual = 7119
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:29 ; elapsed = 00:00:33 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 229 ; free virtual = 7004
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:33 . Memory (MB): peak = 1721.266 ; gain = 365.246 ; free physical = 229 ; free virtual = 7004
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:32 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:32 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     2|
+|2     |CARRY4 |    39|
+|3     |LUT1   |     6|
+|4     |LUT2   |    19|
+|5     |LUT3   |    81|
+|6     |LUT4   |    71|
+|7     |LUT5   |    98|
+|8     |LUT6   |   170|
+|9     |FDCE   |    31|
+|10    |FDRE   |  1051|
+|11    |FDSE   |     6|
+|12    |IBUF   |     2|
+|13    |OBUF   |    15|
++------+-------+------+
+
+Report Instance Areas: 
++------+---------------+-------------+------+
+|      |Instance       |Module       |Cells |
++------+---------------+-------------+------+
+|1     |top            |             |  1591|
+|2     |  cd           |clkdiv       |    33|
+|3     |  dis          |display      |    42|
+|4     |  mt           |MIPSTop      |  1497|
+|5     |    mips       |MIPS         |  1497|
+|6     |      dp       |Datapath     |  1497|
+|7     |        adder1 |Adder        |     8|
+|8     |        adder2 |Adder_0      |     8|
+|9     |        alu    |ALU          |    25|
+|10    |        pcreg  |PCReg        |   346|
+|11    |        rf     |RegisterFile |  1110|
++------+---------------+-------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:32 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.273 ; gain = 373.254 ; free physical = 228 ; free virtual = 7003
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 74 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 1729.273 ; gain = 25.379 ; free physical = 282 ; free virtual = 7057
+Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:35 . Memory (MB): peak = 1729.281 ; gain = 373.254 ; free physical = 282 ; free virtual = 7057
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 39 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 1729.281 ; gain = 0.000 ; free physical = 222 ; free virtual = 7000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+56 Infos, 154 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:34 ; elapsed = 00:00:37 . Memory (MB): peak = 1729.281 ; gain = 373.391 ; free physical = 279 ; free virtual = 7057
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1729.281 ; gain = 0.000 ; free physical = 279 ; free virtual = 7057
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint '/home/lhq/Workspace/computer-architecture-laboratory/mips-sc/mips-sc.runs/synth_1/top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Mar 23 10:09:08 2019...
