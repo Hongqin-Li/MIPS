@@ -3,51 +3,55 @@
 module MIPS_tb;
     reg clk = 0;
     reg rst = 0;
+    MIPSTop t(clk, rst);
     
-    wire [31: 0] ALUResult, Instr;
-    wire [31: 0] pc;
+    wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
+    wire [31: 0] pc = t.PC;
+    wire [31: 0] writeData = t.dmem.writeData;
+    wire [31: 0 ] writeAddr = t.dmem.addr;
     
     wire [31: 0] rf [0: 31];
-    wire [31: 0] dm [0: 31];
-    wire [31: 0] srca;
-    wire [1: 0] wid;
-    wire sig;
+    
     wire [31: 0]test;
-    wire zf, sf, of;
-    wire pcsrc;
-    wire [31: 0] pcbranch;
-    Top t(clk, rst, ALUResult, Instr);
-    
-    assign srca = t.mips.dp.srcA;
-    
-    assign zf = t.mips.dp.ZF;
-    assign sf = t.mips.dp.SF;
-    assign of = t.mips.dp.OF;
-    assign pcsrc = t.mips.dp.PCSrc;
-    
-    assign pcbranch = t.mips.dp.pcBranch;
-    
-    assign wid = t.MemWidth;
-    assign sig = t.MemSign;
-    assign pc = t.PC;
-    assign test = t.mips.dp.pcJump;
+
+    assign test = t.dmem.RAM[16'h100/4];
     generate 
     genvar i;
     for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
-    
-    for (i = 0; i < 32; i = i + 1) begin assign dm[i] = t.dmem.RAM[i];end
-    
     endgenerate
     
     initial
     begin
+        t.mips.dp.rf.RegCell[16] = 64;
         rst = ~rst;
         #20 ;
         rst = ~rst;
-        repeat (100) #20 clk = ~ clk;
+        repeat (300) #2 clk = ~ clk;
     end
     
 endmodule
+
+/*
+module Multiplier_tb;
+
+
+    reg s = 0;
+    reg signed [31: 0] a = -10000;
+    reg signed [31: 0] b = 10000;
+    wire [31 : 0] result;
+    
+    Multiplier mlt(a, b, s, result);
+    wire [63: 0] t = mlt.temp;
+    
+    initial 
+    begin
+        #20 s = ~s;
+    end
+    
+    
+endmodule
+
+*/
 
 
 /*

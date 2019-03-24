@@ -1,4 +1,4 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/computer-architecture-laboratory/mips-single-cycle.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/mips/mips-single-cycle.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module top
 INFO: [VRFC 10-311] analyzing module display
 INFO: [VRFC 10-311] analyzing module clkdiv
@@ -15,5 +15,5 @@ INFO: [VRFC 10-311] analyzing module PCReg
 INFO: [VRFC 10-311] analyzing module ShiftLeft2
 INFO: [VRFC 10-311] analyzing module SignExtend
 INFO: [VRFC 10-311] analyzing module ALU
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/computer-architecture-laboratory/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/mips/testbench.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module MIPS_tb

@@ -7,7 +7,7 @@ MIPS variances including single cycle, multi cycle, and pipeline.
 
 ### Supported Instructions
 
-* R-Type (17)
+* R-Type (19)
 
 Func | rs | rt | rd |  shift (shamt) | Opcode 
 - | - | - |- |- |- 
@@ -22,6 +22,7 @@ SLLV | 000000 | 000100 | `SLLV rd, rt, rs` | `GPR[rd] ← GPR[rt] << GPR[rs]`
 SRLV | 000000 | 000110 | `SRLV rd, rt, rs` | `GPR[rd] ← GPR[rt] >> GPR[rs] (logical)` 
 SRAV | 000000 | 000111 | `SRAV rd, rt, rs` | `GPR[rd] ← GPR[rt] >> GPR[rs] (arithmetic)` 
 JR | 000000 | 001000 | `JR rs` | `PC ← GPR[rs]` 
+JALR | 000000 | 001001 | `JALR rd, rs` | `GPR[rd] ← PC + 4, PC ← GPR[rs]`
 ADD | 000000 | 100000 | `ADD rd, rs, rt` | `GPR[rd] ← GPR[rs] + GPR[rt]` 
 ADDU | 000000 | 100001 | `ADDU rd, rs, rt` | `GPR[rd] ← GPR[rs] + GPR[rt]` 
 SUB | 000000 | 100010 | `SUB rd, rs, rt` | `GPR[rd] ← GPR[rs] - GPR[rt]` 
@@ -32,6 +33,7 @@ XOR | 000000 | 100110 | `XOR rd, rs, rt` | `GPR[rd] ← GPR[rs] XOR GPR[rt]`
 NOR | 000000 | 100111 | `NOR rd, rs, rt` | `GPR[rd] ← GPR[rs] NOR GPR[rt]` 
 SLT | 000000 | 101010 | `SLT rd, rs, rt` | `GPR[rd] ← (GPR[rs] < GPR[rt])` 
 SLTU | 000000 | 101011 | `SLTU rd, rs, rt` | `GPR[rd] ← (GPR[rs] < GPR[rt])` 
+MUL | 011100 | 000010 | `MUL rd, rs, rt` | `GPR[rd] ← GPR[rs] × GPR[rt]` 
 
 * I-Type (20)
 
@@ -97,4 +99,56 @@ $31 | $ra | Return Address
 \$f20 - $f31 | - | Saved registers, preserved by subprograms
 
 
+
+### Useful Instructions
+
+- PUSH and POP
+
+```assembly
+# PUSH
+ADDI $sp, $sp, -4 # sp -= 4
+SW $ra, 0($sp) # Store Return Address
+......
+# POP
+ADDI $sp, $sp, 4 # sp += 4
+LW $ra, 0($sp) # Load Return Address
+```
+
+- CALL and RET
+
+```assembly
+# CALL
+JAL target
+......
+# RET
+JR $ra
+```
+
+- HLT
+
+```assembly
+B -1
+# Or BEQ $r0, $r0, -1
+```
+
+### I/O Mapping
+
+
+
+### Assembly Demo
+
+```assembly
+# y = x mod m: 
+MOD:
+	ADDI $v0, $a0, 0
+	SUB $t0, $a1, $v0 # t0 = m - x
+	SUB $t1, $r0, $v0 # t1 = -x
+	BLEZ t0, 2 # If m <= x, go to Branch 1 (x -= m)
+	BGTZ t1, 3 # Else if b < 0, go to Branch 2 (x += m)
+	JR $ra # Else return 
+	SUB $v0, $v0, $a1 # Branch 1
+	B -7 # Loop
+	ADD $v0, $v0, $a1 # Branch 2
+	B -9 # Loop
+```
 

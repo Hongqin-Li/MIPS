@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/lhq/Workspace/computer-architecture-laboratory/mips-sc/mips-sc.runs/synth_1'
+HD_PWD='/home/lhq/Workspace/mips/mips-sc/mips-sc.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

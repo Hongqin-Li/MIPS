@@ -17,9 +17,9 @@ Compiling module xil_defaultlib.ALU
 Compiling module xil_defaultlib.Datapath
 Compiling module xil_defaultlib.ControlUnit
 Compiling module xil_defaultlib.MIPS
-Compiling module xil_defaultlib.IMem
+Compiling module xil_defaultlib.IMem_default
 Compiling module xil_defaultlib.DMem
-Compiling module xil_defaultlib.Top
+Compiling module xil_defaultlib.MIPSTop
 Compiling module xil_defaultlib.MIPS_tb
 Compiling module xil_defaultlib.glbl
 Built simulation snapshot MIPS_tb_behav

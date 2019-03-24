@@ -1,6 +1,54 @@
 `timescale 1ns / 1ps
 
 
+
+`define CTL_WIDTH 31:0
+
+`define CTL_ALUCONTROL 
+`define CTL_ALUCONTROL_UNSIGNED
+`define CTL_ALUCONTROL_RIGHT
+`define CTL_ALUCONTROL_VARIABLE
+
+`define CTL_BRANCHTYPE
+
+
+`define CTL_REGDST 
+`define CTL_REGWRITE
+
+`define CTL_MEMREAD // useless? no
+`define CTL_MEMWRITE
+`define CTL_MEM8
+`define CTL_MEM16
+
+`define CTL_USEIMM
+
+`define CTL_BRANCH
+`define CTL_JUMP
+`define CTL_JUMPREG
+
+`define DMEM_MAX_ADDR 16'd512
+
+`define STACK_BEGIN_ADDR 16'd256 
+//IO Mapping
+`define IN0_ADDR 16'd272
+`define IN1_ADDR 
+`define IN2_ADDR
+`define IN3_ADDR
+`define IN4_ADDR
+`define IN5_ADDR
+`define IN6_ADDR
+`define IN7_ADDR
+
+`define OUT0_ADDR 16'd256
+`define OUT1_ADDR 
+`define OUT2_ADDR
+`define OUT3_ADDR
+`define OUT4_ADDR
+`define OUT5_ADDR
+`define OUT6_ADDR
+`define OUT7_ADDR
+
+
 //ALU Control Signal
 `define SLL 4'b0000
 `define SRL 4'b0001
@@ -9,7 +57,8 @@
 `define LUI 4'b0011
 //`define SRLV 4'b0100
 //`define SRAV 4'b0101
-
+`define MUL 4'b0100
+//`define MULU 4'b0101
 `define ADD 4'b0110
 `define ADDU 4'b0111
 `define SUB 4'b1000
@@ -89,21 +138,29 @@ module top (CLK100MHZ, SW, AN, S);
     
     assign rst = SW[0];
     
-    clkdiv cd(.mclk(CLK100MHZ), .clk1_4hz(clk));
+    clkdiv cd(.mclk(CLK100MHZ), .clk(clk));
     
     MIPSTop mt(clk, rst);
     
-    display dis(CLK100MHZ, AN, S, 
-        {mt.mips.dp.rf.RegCell[1][3:0],
-        mt.mips.dp.rf.RegCell[2][3:0],
-        mt.mips.dp.rf.RegCell[3][3:0],
-        mt.mips.dp.rf.RegCell[4][3:0],
-        mt.mips.dp.rf.RegCell[5][3:0],
-        mt.mips.dp.rf.RegCell[6][3:0],
-        mt.mips.dp.rf.RegCell[7][3:0],
-        mt.mips.dp.rf.RegCell[8][3:0]}, 0);
     
-
+    wire [7: 0] out = mt.dmem.RAM[`OUT0_ADDR/4];
+    wire [31: 0] pc = mt.PC;
+    
+    wire [3: 0] d0 = out % 10;
+    wire [3: 0] d1 = (out / 10) % 10;
+    wire [3: 0] d2 = (out / 100) % 10;
+    wire [3: 0] d3 = 4'b0;
+    wire [3: 0] d4 = pc % 10;
+    wire [3: 0] d5 = (pc / 10) % 10;
+    wire [3: 0] d6 = (pc / 100) % 10;
+    wire [3: 0] d7 = (pc / 1000) % 10;
+    
+    display dis(CLK100MHZ, AN, S, 
+        {d7, d6, d5, d4, d3, d2, d1, d0}, 0);
+    
+    assign mt.dmem.iwrite = SW[0] & SW[1];
+    assign mt.dmem.iaddr = `IN0_ADDR;
+    assign mt.dmem.idata = SW[15:4];
 endmodule
 
 
@@ -186,19 +243,20 @@ endmodule
 module clkdiv(
     input mclk,
     output clk380,
-    output clk6000,
-    output clk190,
-    output clk1_4hz
+    //output clk6000,
+    //output clk190,
+    output clk
     );
     reg [27:0]q;
     always @ (posedge mclk)
         q <= q + 1;
 
     assign clk380 = q[17];//380hz
-    assign clk6000 = q[13];//6000hz 
-    assign clk190 = q[18];//190hz 
-    assign clk1_4hz = q[24];
- //   assign clk1_1hz=q[26];         
+    //assign clk6000 = q[13];//6000hz 
+    //assign clk190 = q[18];//190hz 
+    //assign clk1_4hz=q[24];         
+    assign clk = q[20];
+    //assign clk1_1hz=q[26];         
 endmodule
 
 
@@ -224,51 +282,91 @@ module IMem (addr, instr);
     output reg [31: 0] instr;
     
     parameter LH = 6'b100001, LUI = 6'b001111;
-    parameter ADDI = 6'b001000, ADDIU = 6'b001001, BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111;
-    parameter ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010;
+    parameter ADDI = 6'b001000, ADDIU = 6'b001001, ORI = 6'b001101, BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111;
+    parameter ADD = 6'b100000, ADDU = 6'b100001, OR = 6'b100101, SUB = 6'b100010;
     parameter J = 6'b000010, JAL = 6'b000011;
-    parameter JR = 6'b001000;
-    
-    parameter HLT = 32'b000100_00000_00000_11111111_11111111;
-    
-    
+    parameter JR = 6'b001000, JALR = 6'b001001;
+    parameter SB = 6'b101000, SW = 6'b101011, LW = 6'b100011, LB = 6'b100000, LBU = 6'b100100;
+   
     /* Registers */
     parameter r0 = 5'b0;
-    parameter v0 = 5'b00010, v1 = 5'b00011;//return values from function
-    parameter a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111;//arguments to function
+    parameter v0 = 5'b00010, v1 = 5'b00011;//Return values from function
+    parameter a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111;//Arguments to function
     parameter ra = 5'b11111;//Return address register
     parameter t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011;//Temporary data
+    parameter s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17;//Saved Registers, preserved by subprograms
+    parameter sp = 5'b11101;//Stack Pointer
     
-    parameter [32 * 8 - 1: 0] MOD = {
-        32'b000000_00011_00010_00100_00000_100010,//SUB $4, $3, $2
-        32'b000110_00100_00000_00000000_00000010,// BLEZ $4, 0x2 # if c - b <= 0, then branch 1 (b -= c)
-        32'b000110_00010_00000_00000000_00000011,// BLEZ $2, 0x  # else if b <= 0, then branch 2 (b += c)
-        32'b000100_00000_00000_00000000_00000100,// B 0x4 # else branch 3 (break)
-        32'b000000_00010_00011_00010_00000_100010,//SUB $2, $2, $3 # branch 1
-        32'b000100_00000_00000_11111111_11111010,// B -0x6 # loop
-        32'b000000_00010_00011_00010_00000_100000,//ADD $2, $2, $3 # branch 2
-        32'b000100_00000_00000_11111111_11111000 };// B -0x8 # loop};
     
-    genvar i;
+    parameter HLT = {6'b000100, 10'b0, 16'hffff};
+    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
+   
     always @ (addr[31: 2])
         
         case (addr[31: 2])
             
-            0: instr = {ADDI, r0, a0, 16'b1011};// ADDI $a0, $0, 0x2
-            1: instr = {ADDI, r0, a1, 16'b0100};// ADDI $a1, $0, 0x4
-            2: instr = {JAL, 26'b1100100};
-            3: instr = HLT;
+            /*
+            def lcg(modulus, a, c, seed):
+                while True:
+                    seed = (a * seed + c) % modulus
+                    yield seed
             
-            /* v0 <= a0 mod a1 */
-            100: instr = {ADDI, a0, v0, 16'b0};//ADDI $2, $4, 0 # $1 <= $2
-            102: instr = {6'b0, a1, v0, t0, 5'b0, SUB};//SUB $8, $3, $2
-            103: instr = {BLEZ, t0, 5'b0, 16'b10};// BLEZ $4, 0x2 # if c - b <= 0, then branch 1 (b -= c)
-            104: instr = {BLEZ, v0, 5'b0, 16'b11};// BLEZ $1, 0x  # else if b <= 0, then branch 2 (b += c)
-            105: instr = {6'b0, ra, 10'b0, 5'b0, JR};// B 0x4 # else return 
-            106: instr = {6'b0, v0, a1, v0, 5'b0, SUB};//SUB $1, $1, $3 # branch 1
-            107: instr = {BEQ, r0, r0, 16'b11111111_11111010};// B -0x6 # loop
-            108: instr = {6'b0, v0, a1, v0, 5'b0, ADD};//ADD $1, $1, $3 # branch 2
-            109: instr = {BEQ, r0, r0, 16'b11111111_11111000};// B -0x8 # loop
+            */
+            //init
+            0: instr = {ADDI, r0, sp, `STACK_BEGIN_ADDR};//Stack pointer 256
+            
+            //1: instr = {ADDI, r0, t0, 16'd0};
+            //2: instr = {SB, r0, t0, `IN0_ADDR};
+            
+            //Read seed from IO device
+            3: instr = {LBU, r0, s0, `IN0_ADDR};
+            
+            //loop:
+            10: instr = {ORI, s0, a1, 16'd0};// retrieve seed
+            11: instr = {ADDI, r0, a0, 16'd17};// a = 17
+            12: instr = {ADDI, r0, a2, 16'd3};// c = 3
+            13: instr = {ADDI, r0, a3, 16'd256};// m = 256
+            
+            14: instr = {JAL, 26'd50};// call lcg()
+            
+            15: instr = {ORI, v0, s0, 16'b0};
+            16: instr = {SB, r0, v0, `OUT0_ADDR};
+            17: instr = {BEQ, r0, r0, 16'hfff8};//loop
+            
+            
+            //linear congruential generator  
+            //int lcg(a, seed, c, m) {return seed = (a * seed + c) % m;}
+            50: instr = {6'b011100, a1, a0, t0, 5'b00000, 6'b000010};//MUL
+            51: instr = {6'b0, a2, t0, t0, 5'b00000, ADDU};
+            52: instr = {ORI, t0, a0, 16'b0};
+            53: instr = {6'b000000, r0, a3, a1, 5'b0, OR};
+            //Push
+            54: instr = {ADDI, sp, sp, 16'hfffc};// sp -= 4
+            55: instr = {SW, sp, ra, 16'b0};
+            //Push end
+            
+            //Testing JARL
+            56: instr = {ORI, r0, t2, 14'd80, 2'd0};
+            57: instr = {6'b0, t2, r0, ra, 5'b0, JALR};
+            //56: instr = {JAL, 26'd80};//call mod()
+            
+            //Pop
+            58: instr = {LW, sp, ra, 16'b0};
+            59: instr = {ADDI, sp, sp, 16'h4};// sp -= 4
+            //Pop end
+            60: instr = RET;
+            
+            // int mod(a0, a1) {return v0 = a0 % a1;} 
+            80: instr = {ADDI, a0, v0, 16'b0};//ADDI $2, $4, 0 # $1 <= $2
+            81: instr = {6'b0, a1, v0, t0, 5'b0, SUB};//SUB $8, $3, $2
+            82: instr = {6'b0, r0, v0, t1, 5'b0, SUB};
+            83: instr = {BLEZ, t0, 5'b0, 16'b10};// # if c - b <= 0, then branch 1 (b -= c)
+            84: instr = {BGTZ, t1, 5'b0, 16'b11};// # else if b < 0, then branch 2 (b += c)
+            85: instr = RET;// # else return 
+            86: instr = {6'b0, v0, a1, v0, 5'b0, SUB};//SUB $1, $1, $3 # branch 1
+            87: instr = {BEQ, r0, r0, 16'hfff9};// B -0x7 # loop
+            88: instr = {6'b0, v0, a1, v0, 5'b0, ADD};//ADD $1, $1, $3 # branch 2
+            89: instr = {BEQ, r0, r0, 16'hfff7};// B -0x9 # loop
             
             /*
             //Test 1
@@ -349,8 +447,11 @@ module DMem (clk, addr, writeEnable, writeData, readData, sign, width);
     input [1: 0] width;
     input sign;
     output reg [31: 0] readData;
-
-    reg [31: 0] RAM[63: 0];
+    
+    wire iwrite;
+    wire [31:0] iaddr, idata;
+    
+    reg [31: 0] RAM[`DMEM_MAX_ADDR/4 - 1: 0];
     reg s;
     always @ (*)
         case ({ width, addr[1:0] })
@@ -405,7 +506,9 @@ module DMem (clk, addr, writeEnable, writeData, readData, sign, width);
             2: RAM[addr[31: 2]] <= writeData;
             default: RAM[addr[31: 2]] <= RAM[addr[31: 2]];
             endcase
-            //RAM[ addr[31: 2] ] <= writeData;
+        else if (iwrite)
+            RAM[iaddr[31: 2]] <= idata;//For input 
+            
 endmodule
 
 
@@ -467,7 +570,7 @@ module Datapath (clk, rst, Instr, MemToReg, PCSrc, ALUSrc, RegDst, RegWrite, Jum
 
     Adder adder2 (pcPlus4, signImmSh2, pcBranch);
     
-    assign pcJump =  (Instr[31:26] == 6'b000000 && Instr[5: 0] == 6'b001000) ? readData1: {pcPlus4[31:28], Instr[25:0], 2'b00};//For JR
+    assign pcJump =  (Instr[31:26] == 6'b000000 && (Instr[5: 0] == 6'b001000 || Instr[5: 0] == 6'b001001)) ? readData1: {pcPlus4[31:28], Instr[25:0], 2'b00};//For JR and JALR
     
     assign pcNextBranch = PCSrc ? pcBranch:pcPlus4; 
     assign pcNext = Jump ? pcJump: pcNextBranch;
@@ -516,7 +619,7 @@ module ControlUnit (Func, Opcode, ZF, SF, OF, RegDst, RegWrite, ALUSrc, ALUContr
     
     assign { RegWrite, RegDst, ALUSrc, Branch, MemWrite, MemToReg, ALUControl } = ctl;
 
-    assign Jump = (Func == 6'b000010 || Func == 6'b000011 || (Func == 6'b0 && Opcode == 6'b001000));//J or JAL or JR
+    assign Jump = (Func == 6'b000010 || Func == 6'b000011 || (Func == 6'b0 && (Opcode == 6'b001000 || Opcode == 6'b001001) ));//J or JAL or JR or JALR
     
     // for sh, lh, sb, lb, sw, lw
     assign MemWidth = ((Func == 6'b101001 || Func == 6'b100001 || Func == 6'b100101) ? 1: ((Func == 6'b101000 || Func == 6'b100000 || Func == 6'b100100) ? 0: 2));
@@ -548,6 +651,7 @@ module ControlUnit (Func, Opcode, ZF, SF, OF, RegDst, RegWrite, ALUSrc, ALUContr
             6'b000111: ctl = {8'b10100000, `SRA};
             
             6'b001000: ctl = {8'b10100000, `ADD};//JR
+            6'b001001: ctl = {8'b10100011, `ADD};//JALR
             
             6'b100000: ctl = {8'b10100000, `ADD};
             6'b100001: ctl = {8'b10100000, `ADDU};
@@ -581,6 +685,8 @@ module ControlUnit (Func, Opcode, ZF, SF, OF, RegDst, RegWrite, ALUSrc, ALUContr
         6'b001110: ctl = {8'b10010000, `XOR};//XORI
         6'b001111: ctl = {8'b10010000, `LUI};//LUI
         
+        6'b011100: ctl = Opcode == 6'b000010 ? {8'b10100000, `MUL} : 0;//MUL
+            
         //r
         6'b100000: ctl = {8'b10010001, `ADD};//LB 
         6'b100001: ctl = {8'b10010001, `ADD};//LH
@@ -765,14 +871,79 @@ module SignExtend (a, y);
     assign y = { {16{a[15]}}, a };
 endmodule
 
+/*
+module Control(Instr);
 
+
+endmodule
+
+
+module Execute (CLK, Rst, Instr, SrcA, SrcB, Control, Result);
+    input CLK, Rst;
+    input [31: 0] Instr, SrcA, SrcB;
+    input [4: 0] Control;
+    output reg [31:0] Result;
+    
+    wire [31: 0] ALUResult;
+    wire [31: 0] ShiftResult;
+    wire [31: 0] MultiplyResult;
+    
+    wire ZF, OF, SF;
+    
+    wire Direction = ;
+    
+    wire Signed = ;
+    
+    Shifter (SrcB, SrcA, Direction, Signed, ShiftResult);
+    Multiplier (SrcA, SrcB, Signed, Result);
+    ALU (SrcA, SrcB, ALUControl, ALUResult, ZF, OF, SF);
+    
+endmodule 
+
+
+
+
+module Shifter (Src, Shamt, Direction, Signed, Result);
+    input [31: 0] Src;
+    input [4:0] Shamt;
+    input Direction;//0 = left, 1 = right
+    input Signed;
+    output reg [31: 0] Result;
+
+    always @ (*)
+        case ({Direction, Signed})
+        2'b00: Result = Src << Shamt;
+        2'b01: Result = Src << Shamt;
+        2'b10: Result = Src >> Shamt;
+        2'b11: Result = $signed(Src) >>> Shamt;
+        endcase
+    
+endmodule 
+
+
+
+module Multiplier (SrcA, SrcB, Signed, Result);
+    input [31: 0] SrcA, SrcB;
+    input Signed;
+    output [31: 0] Result;
+    
+    reg [63: 0] temp;
+    assign Result = temp[31: 0];
+        
+    always @ (*)
+        if (Signed) temp = $signed(SrcA) * $signed(SrcB);
+        else temp = SrcA * SrcB;
+        
+endmodule
+
+*/
 module ALU (SrcA, SrcB, ALUControl, ALUResult, ZF, OF, SF);
     input [31: 0] SrcA, SrcB;
     //input [4: 0] Shamt;// shift amount
     input [3: 0] ALUControl;
     output ZF, OF, SF;
     output reg [31: 0] ALUResult;
-    
+    //output reg [31: 0] HO, LO;
     wire [4:0] shamt;
     
     assign shamt = SrcA[4: 0];
@@ -791,6 +962,7 @@ module ALU (SrcA, SrcB, ALUControl, ALUResult, ZF, OF, SF);
             //`SLLV: ALUResult = SrcB << SrcA;//shift left
             //`SRLV: ALUResult = SrcB >> SrcA;//shift right logic
             //`SRAV: ALUResult = SrcB >>> SrcA;//shift right arithmetic
+            `MUL: ALUResult = $signed(SrcA) * $signed(SrcB);
             
             `AND: ALUResult = SrcA & SrcB;
             `OR: ALUResult = SrcA | SrcB;
@@ -804,6 +976,6 @@ module ALU (SrcA, SrcB, ALUControl, ALUResult, ZF, OF, SF);
             //5: ALUResult = SrcA | ~SrcB;
             `SLT: ALUResult = ($signed(SrcA) < $signed(SrcB));//SLT: set if less than (signed)
             `SLTU: ALUResult = (SrcA < SrcB);//SLT: set if less than (unsigned)
-            //default: ALUResult = 0;
+            default: ALUResult = 32'hxxxx_xxxx;
         endcase
 endmodule
