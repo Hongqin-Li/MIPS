@@ -1,7 +1,0 @@
-0.6
-2018.3
-Dec  6 2018
-23:39:36
-/home/lhq/Workspace/mips/mips-sc/mips-sc.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
-/home/lhq/Workspace/mips/mips-single-cycle.v,1553409188,verilog,,/home/lhq/Workspace/mips/testbench.v,,ALU;Adder;ControlUnit;DMem;Datapath;IMem;MIPS;MIPSTop;Mux2;PCReg;RegisterFile;ShiftLeft2;SignExtend;clkdiv;display;top,,,,,,,,
-/home/lhq/Workspace/mips/testbench.v,1553395020,verilog,,,,MIPS_tb,,,,,,,,

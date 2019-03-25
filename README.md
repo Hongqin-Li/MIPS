@@ -98,8 +98,6 @@ $31 | $ra | Return Address
 \$f16 - $f18 | - | More temporary registers, not preserved by subprograms
 \$f20 - $f31 | - | Saved registers, preserved by subprograms
 
-
-
 ### Useful Instructions
 
 - PUSH and POP
@@ -135,14 +133,44 @@ B -1
 
 
 
-### Assembly Demo
+### Demo in Assembly 
 
 ```assembly
-# y = x mod m: 
+# LCG (Linear Congruential Generator) Algorithm
+# seed = (a * seed + c) mod m;
+
+# Initialize
+ADDI $sp, $zero, STACK_BEGIN_ADDR # Set up stack pointer
+LBU $s0, IN0_ADDR($zero) # Read from I/O device
+
+LOOP:
+    ORI $a1, $s0, 0 # Retrieve seed
+    ADDI $a0, $zero, 17 # a = 17
+    ADDI $a2, $zero, 3 # c = 3
+    ADDI $a3, $zero, 256 # m = 256
+    JAL LCG # Call
+    ORI $s0, $v0, 0
+    SB $v0, OUT0_ADDR($zero) # Write to I/O device
+    B LOOP 
+
+#  return (a * seed + c) % m
+LCG:
+    MUL $t0, $a1, $a0 # x = a * seed
+    ADDU $t0, $t0, $a2 # x += c
+    ORI $a0, $t0 # Set parameter x = (a * seed) + c
+    OR $a1, $a3, $zero # Set parameter m
+    ADDI $sp, $sp, -4 # $sp -= 4
+    SW $ra, 0($sp) # Push
+    JAL MOD # Call
+    LW $ra, 0($sp) # Pop
+    ADDI $sp, $sp, 4 # sp -= 4
+    JR $ra # RET
+
+# return x % m 
 MOD:
 	ADDI $v0, $a0, 0
 	SUB $t0, $a1, $v0 # t0 = m - x
-	SUB $t1, $r0, $v0 # t1 = -x
+	SUB $t1, $zero, $v0 # t1 = -x
 	BLEZ t0, 2 # If m <= x, go to Branch 1 (x -= m)
 	BGTZ t1, 3 # Else if b < 0, go to Branch 2 (x += m)
 	JR $ra # Else return 
@@ -151,4 +179,39 @@ MOD:
 	ADD $v0, $v0, $a1 # Branch 2
 	B -9 # Loop
 ```
+
+
+
+### Demo in Python 3
+```python
+# Only to check the result
+print ('Please input a seed')
+
+seed = int(input())
+a = 17
+c = 3
+m = 256
+
+def lcg(modulus, a, c, seed):
+    s = []
+    while True:
+        seed = (a * seed + c) % modulus
+        if seed in s :
+            print ('Total : ' + str(len(s))) 
+            break
+        else :
+            s.append(seed)
+            yield seed
+
+for x in lcg (m, a, c, seed):
+    print (x)
+```
+
+
+
+
+
+### Simulation
+
+ALU
 
