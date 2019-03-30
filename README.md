@@ -5,9 +5,9 @@ MIPS variances including single cycle, multi cycle, and pipeline.
 
 ## Single Cycle
 
-### Supported Instructions
+### 40+ Supported Instructions
 
-* R-Type (19)
+* R-Type
 
 Func | rs | rt | rd |  shift (shamt) | Opcode 
 - | - | - |- |- |- 
@@ -35,7 +35,7 @@ SLT | 000000 | 101010 | `SLT rd, rs, rt` | `GPR[rd] ← (GPR[rs] < GPR[rt])`
 SLTU | 000000 | 101011 | `SLTU rd, rs, rt` | `GPR[rd] ← (GPR[rs] < GPR[rt])` 
 MUL | 011100 | 000010 | `MUL rd, rs, rt` | `GPR[rd] ← GPR[rs] × GPR[rt]` 
 
-* I-Type (20)
+* I-Type
 
 Opcode | rs (base) | rt | IMM
 - | - | - |- 
@@ -78,6 +78,8 @@ NOP | 000000 | `NOP`
 
 ### Registers
 
+Floating point registers haven't implemented.
+
 Register Number | Conventional Name | Usage
 - | - | -
 $0 | $zero | Hard-wired to 0
@@ -98,7 +100,27 @@ $31 | $ra | Return Address
 \$f16 - $f18 | - | More temporary registers, not preserved by subprograms
 \$f20 - $f31 | - | Saved registers, preserved by subprograms
 
+### Implementation
+
+The Control Unit is slightly different from that in textbook, since I have added some instructions beyond requirement.
+
+#### Control Signals
+Signal |Description | Values or Select lines 
+- | - | -
+PCSrc | Source of next PC (This signal is a combination of Branch and Jump) | PC + 4, Branch Target, Immediate (J and JAL) , Instruction[25: 21] (JR and JALR) 
+RegWrite |Write enable of Register File|0, 1
+RegDst |Destination register to write data | Instruction[20:16] (I-Type), Instruction[15:11] (R-Type), 31 (JAL and JARL) 
+RegWriteData |Data to write to the destination register | ALU result, Read Data in Data Memory, PC + 4 (JAL and JALR) 
+ALUSrcA |Operand A of ALU|Read Data 1, Instruction[10: 5] (Shamt for shift operations)
+ALUSrcB |Operand B of ALU|Read Data 2, Immediate
+ALUControl |Operation of ALU|SLL, SRL, SRA, LUI, MUL, MULU, ADD, ADDU, SUB, SUBU, AND , OR, XOR, NOR, SLT, SLTU
+MemWrite |Write enable of Data Memory|0, 1
+MemSigned | Whether the read data in Data Memory will be sign-extended or not when MemWidth is less than word |0, 1
+MemWidth | The width of write/read data in Data Memory | byte, half-word, word 
+
 ### Useful Instructions
+
+I have implemented the stack frame when making functions called and returned. And the instruction combinations below are commonly used to accord **the Calling Convention** , which includes pushing and popping in the stack, calling a function and then returning from it.
 
 - PUSH and POP
 
@@ -131,7 +153,36 @@ B -1
 
 ### I/O Mapping
 
+To make it behaves as similar as possible to a true CPU, I try to simulate the I/O Mapping in MIPS.
 
+- The inputs, e.g. `SW`, are mapping directly into the Data Memory with a fixed address, decided by the designer.
+- The outputs, e.g. `seed`, is mapped at another predefined address. 
+- Then, for CPU, it only need to read Data Memory to fetch the inputs, and modify the value at specific output address to govern the outputs.
+
+### Demo Description
+
+The demo is a random number generator using LCG (Linear Congruential Generator) Algorithm. It works as follows.
+
+- Initially, a seed is given, denoted by $s_0​$,  e.g. $seed = s_0 =0 ​$ .
+
+- Then the outputs will be generated according to the recurrence
+
+  $s_{i+1} = (a \times s_{i}+c)\mod m ​$ , 
+
+  where a, c, m are chosen carefully as 17, 3, 256 respectively since this combination can output every integer in [0, 255], which can be proved with the help of **Number Theory**
+
+  For example, 
+
+  $s_{1} = (a \times s_{0}+c)\mod m = (17 \times 0+3)\mod 256  = 3​$
+
+  $s_{2} = (a \times s_{1}+c)\mod m = (17 \times 3+3)\mod 256  = 54​$
+
+
+And here is the description of I/O.
+
+- `SW[0]`: Reset Signal. If `SW[0] = 1`, PC will be reset to 0.
+- `SW[1]`: Load Enable Signal. If both `SW[0] = 1` and `SW[1] = 1`, seed will be set to `{SW[15: 4]}`.
+- `SW[15: 4]`: The input seed.
 
 ### Demo in Assembly 
 
@@ -180,11 +231,10 @@ MOD:
 	B -9 # Loop
 ```
 
-
-
 ### Demo in Python 3
 ```python
-# Only to check the result
+# This is used to help understanding the algorithm
+# Can also used to check the answer
 print ('Please input a seed')
 
 seed = int(input())
@@ -207,11 +257,6 @@ for x in lcg (m, a, c, seed):
     print (x)
 ```
 
-
-
-
-
 ### Simulation
 
-ALU
-
+See `module Instr_tb` in `testbench.v` , which includes simulation code and the answer.
