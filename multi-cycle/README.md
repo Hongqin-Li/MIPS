@@ -1,6 +1,18 @@
 # Multi-cycle MIPS Implementation
 
-Notation:
+```
+multi-cycle/
+|
+|-- lab2-multi-cycle/: The Vivado project
+|
+|-- mips-multi-cycle.v: Design source
+|-- testbentch.v: Simulation source
+|-- constrs.v: Constraints
+|
+|-- test.py: Demo checker
+```
+
+## Notations
 
 - **Hardware components** and **Highlights** are in bold.
 - `Data` and `Signals` are in code block.
@@ -53,16 +65,32 @@ Now, let's have a detail look at what is happening when executing different type
 
 - *Branch*: BEQ, BNE, BLEZ, BGTZ
 
-  Since we should use ALU to perform at least three computation as below, I add another execute stage called *Execute Branch*. It seems that pipelining does not improve anything due to the unpredictable branching.
+  Since we should use ALU to perform at most three computation as below, I add another execute stage called *Execute Branch*.
 
   - Comparing values in two registers to determine whether to branch or not, which should be performed after *Decode* stage.
   - Computing the next PC for the case of branch not taken, i.e. `PC + 4`.
-  - Computing the branch target, which is the actual PC in the case of branch taken.
+  - (Branch taken case) Computing the branch target, which is the actual PC in the case of branch taken.
 
-|   | Fetch  | Decode        | Execute        | Execute Branch     | Next Stage |
-| -  | ------ | ------------- | -------------- | ------------------ | ---------- |
-| Current instruction | Memory | Register File | ALU(comparing) |                    |            |
-| Next Instruction |        | ALU(PC+4)     |                | ALU(branch target) | Fetch      |
+  
+
+  The behavior is slightly different whether branch is taken or not.
+
+  1. Branch not taken
+
+     With branch not taken, our pre-fetched next instruction code in *Execute* stage is exactly what we will execute. So just jump to next instruction's *Decode* stage.
+  |   | Fetch  | Decode        | Execute        | Next Stage |
+  | -  | ------ | ------------- | -------------- | ------------------ |
+  | Current instruction | Memory | Register File | ALU(comparing) |                    |
+  | Next Instruction |        | ALU(PC+4)     | Memory(next Instr) | Decode |
+
+  2. Branch taken
+
+     The pre-fetched instruction code is not the next instruction to execute, and we need another clock cycle to compute the branch target. Also, we cannot jump to *Decode* stage of next instruction since we haven't get the instruction code of it.
+
+  |   | Fetch  | Decode        | Execute        | Execute Branch     | Next Stage |
+  | -  | ------ | ------------- | -------------- | ------------------ | ---------- |
+  | Current instruction | Memory | Register File | ALU(comparing) |                    |            |
+  | Next Instruction |        | ALU(PC+4)     | Memory(next Instr) | ALU(branch target) | Fetch      |
 
 - *Jump*: J, JR, JAL, JARL
 
@@ -86,7 +114,7 @@ Now, let's have a detail look at what is happening when executing different type
 
 To sum up, the greatest improvement of such pipelined multi-cycle takes effect when dealing with *ALU-Type* and *Load&Store* instructions, making no difference for *Branch* and *Jump* instructions, since it is only a **slightly** pipelined CPU with simple pre-computed PC and pre-fetched instruction for next instruction. But it's still worthy to do so because *ALU-Type* instructions which performing calculations are executed frequently in real programs.
 
-It's worthwhile to mention that there remains two tricky parts to be optimized, i.e. skipping the *Branch Execute* stage of *Branch* when branch not taken and pre-decoding in the *Memory* stage of *Load&Store*. For the sake of time, I have not yet been able to implement them. And maybe there are some more sophisticated designs for pipelined multicycle CPU, but I think they won't be too much better, given only one **ALU**, one **Register File** and one **Memory**. 
+It's worthwhile to mention that there remains a tricky part to be optimized, i.e. pre-decoding in the *Memory* stage of *Load&Store*, which should handle the problem called *Hazards*. For the sake of time, I have not yet been able to implement it. And maybe there are some more sophisticated designs for pipelined multicycle CPU, but I think they won't be too much better, given only one **ALU**, one **Register File** and one **Memory**. 
 
 
 
@@ -103,7 +131,7 @@ The demo is the same as in my implementation of Single-cycle. Recall that it is 
 
 
 
-## Simulation
+## Simulation 
 
 All the codes below are exactly from `Instr_tb` module in `testbench.v`, where I use plenty of macro define for instructions to improve readability (e.g. `ROM` is defined as the instance of cells in **Memory**, `ORI` is 6 bits opcode of ori instruction and `r0` is 5 bits 00000 code for register r0). 
 
@@ -128,9 +156,13 @@ Since many instructions of this type have been used and tested in other simulati
 ```
 And my simulation result is 
 
-![](./shift_sim.png)
+<div align="center">
+<img src="./docs/shift_sim.png" width="66%"/>
+</div> 
 
 This proves the correctness of shift instructions, ORI and LUI.
+
+
 
 ### *Branch*
 
@@ -164,7 +196,20 @@ This proves the correctness of shift instructions, ORI and LUI.
 `ROM[80] = HLT; 
 ```
 
-As we can see above, if our CPU works normally, then the program should not halt and our implementation are likely to be correct. To strictly proof, we need to check the signals behind.
+As we can see above, if our CPU works normally, then the program should not halt and our implementation are likely to be correct. To strictly proof, we need to check the signals behind. Notice that the CPU will enter *Execute Branch* stage only when branch taken. Specifically,
+$$
+\begin{align}
+\text{Branch Not Taken} &: Fetch \rightarrow Decode \rightarrow Execute \rightarrow Decode\\
+\text{Branch Taken} &: Fetch \rightarrow Decode \rightarrow Execute \rightarrow Execute Branch \rightarrow Fetch
+\end{align}
+$$
+<div align="center">
+<img src="./docs/branch_sim.png" width="66%"/>
+</div> 
+
+The red line and blue line in the picture are examples of branch taken and not taken respectively. And the stage coding for *Fetch*, *Decode*, *Execute* and *Execute Branch* are `01`, `02`, `03`, `05` respectively. Notice that PC seems to get to the place where `HLT` is. That's true since it's just pre-computed but not executed when branch taken.
+
+
 
 ### *Load&Store*
 
@@ -190,7 +235,11 @@ As we can see above, if our CPU works normally, then the program should not halt
 
 To check correctness, we just need to focus on the value of `v0`, which is labeled as `test` below, when PC is in `110~114`.
 
-![](./load&store_sim.png)
+<div align="center">
+<img src="./docs/load&store_sim.png" width="66%"/>
+</div> 
+
+
 
 ### *Jump*
 
@@ -213,10 +262,11 @@ $$
 116\rightarrow 117\rightarrow 118\overset{JR}\longrightarrow 130\overset{J}\rightarrow 119\overset{JAL}\longrightarrow 131\overset{RET}\longrightarrow 120\overset{JALR}\longrightarrow 131\overset{RET}\longrightarrow 121
 $$
 
-
 And the simulation is shown below
 
-![](./jump_sim.png) 
+<div align="center">
+<img src="./docs/jump_sim.png" width="66%"/>
+</div> 
 
 
 
