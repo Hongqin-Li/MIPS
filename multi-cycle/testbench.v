@@ -66,7 +66,7 @@
 `define STATE_MEMORY 5'd3
 `define STATE_WRITEBACK 5'd4
 
-
+`define STACK_BEGIN_ADDR 16'd256 
 
 `define ROM t.mem.RAM
 
@@ -111,7 +111,8 @@ module Instr_tb;
     wire [31: 0] ppc = t.dp.PC;
     //wire [5:0] reg_dst = ctl[`CTL_REGDST];
     //wire reg_write = ctl[`CTL_REGWRITE];
-    
+    wire pc_write = ctl[`CTL_PCWRITE];
+    wire [5:0] ctl_op = t.cu.Opcode;
     wire [5:0] pc_src = ctl[`CTL_PCSRC];
     
     generate 
@@ -139,7 +140,8 @@ module Instr_tb;
     parameter sp = 5'b11101;//Stack Pointer
     
     
-    parameter HLT = {BEQ, v0, v0, 16'hffff};
+    parameter HLT = {BEQ, r0, r0, 16'hffff};
+    
     parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
     
     assign test = rf[v0];
@@ -149,7 +151,7 @@ module Instr_tb;
     begin
         //Testing ALU slt and shift
         //for (j = 0; j < 32; j = j + 1) t.mips.dp.rf.RegCell[j] = j;
-        for (j = 0; j < 100; j = j + 1) `ROM[j] = 0;
+        for (j = 0; j < 140; j = j + 1) `ROM[j] = 0;
         
         
         //R-Type
@@ -214,6 +216,19 @@ module Instr_tb;
         `ROM[42] = {SLTIU, a1, v0, 16'h0};// v0 = 0
         `ROM[43] = {SLTIU, a1, v0, 16'h1};// v0 = 0
         `ROM[44] = {SLTIU, a1, v0, 16'hff00};// v0 = 1
+        
+        
+        //Jump
+        `ROM[45] = {ORI, r0, a0, 14'd51, 2'd0};
+        `ROM[46] = {ORI, r0, a1, 14'd52, 2'd0};
+        
+        `ROM[47] = {SPECIAL, a0, 15'b0 ,JR};// # Jump to ROM[130]
+        `ROM[48] = {JAL, 26'd52};//# Jump to ROM[131]
+        `ROM[49] = {SPECIAL, a1, r0, ra, 5'd0, JALR};//# Jump to ROM[131]
+        `ROM[50] = {J, 26'd60};//# Jump out
+        
+        `ROM[51] = {J, 26'd48};//# For non-link jump
+        `ROM[52] = RET;//# For link jump
         
         
         
@@ -292,11 +307,23 @@ module Instr_tb;
         `ROM[112] = {LBU, r0, v0, 16'd500};// # 0x00000af
         `ROM[113] = {LHU, r0, v0, 16'd500};// # 0x00007faf
         
-        `ROM[114] = {LW, r0, v0, 16'd500};// # 0xabcdafaf
+        `ROM[114] = {LW, r0, v0, 16'd500};// # 0xabcd7faf
         
-        `ROM[115] = {BEQ, r0, r0, 16'hffff};// # HLT
+        //`ROM[115] = HLT;
         
-
+        //Jump
+        `ROM[116] = {ORI, r0, a0, 14'd130, 2'd0};
+        `ROM[117] = {ORI, r0, a1, 14'd131, 2'd0};
+        
+        `ROM[118] = {SPECIAL, a0, 15'b0 ,JR};// # Jump to ROM[130]
+        `ROM[119] = {JAL, 26'd131};//# Jump to ROM[131]
+        `ROM[120] = {SPECIAL, a1, r0, ra, 5'd0, JALR};//# Jump to ROM[131]
+        `ROM[121] = HLT;
+        
+        `ROM[130] = {J, 26'd119};//# For non-link jump
+        `ROM[131] = RET;//# For link jump
+        
+        
         //t.mips.dp.rf.RegCell[16] = 64;
         rst = ~rst;
         #20 ;
@@ -308,20 +335,58 @@ module Instr_tb;
 endmodule
 
 
-
 module MIPS_tb;
+    
     reg clk = 0;
     reg rst = 0;
+    
     MIPSTop t(clk, rst);
     
-    wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
-    wire [31: 0] pc = t.PC;
-    wire [31: 0] writeData = t.dmem.WriteData;
-    wire [31: 0] writeAddr = t.dmem.Addr;
+    wire [31: 0] ALUResult = t.dp.alu.ALUResult;
+    wire [31: 0] Instr = t.Instr;
+    wire [31: 0] pc = t.dp.PCReg.q[31:2];
     
     wire [31: 0] rf [0: 31];
+    wire [31: 0] r_v0 = rf[2];
+    wire [31: 0] r_v1 = rf[3];
+    wire [31: 0] r_a0 = rf[4];
+    wire [31: 0] r_a1 = rf[5];
+    wire [31: 0] r_a2 = rf[6];
+    wire [31: 0] r_a3 = rf[7];
+    wire [31: 0] r_t0 = rf[8];
+    wire [31: 0] r_t1 = rf[9];
+    wire [31: 0] r_s0 = rf[16];
     
-    wire [31: 0] test;
+    wire [5: 0] state = t.cu.state;
+    wire [31: 0] test = t.mem.RAM[`OUT0_ADDR / 4 ];
+    
+    wire [`CTL_WIDTH] ctl = t.cu.CTL;
+    //wire pc_write = ctl[`CTL_PCWRITE];
+    //wire ir_write = ctl[`CTL_IRWRITE];
+    wire [5: 0] reg_write = ctl[`CTL_REGWRITE];
+    wire [5: 0] reg_src = ctl[`CTL_REGWRITE_DATA];
+    wire mem_write = ctl[`CTL_MEMWRITE];
+    wire [5:0] mem_signed = ctl[`CTL_MEMSIGNED];
+    wire [5:0] mem_width = t.mem.Width;
+    wire [5:0] ctl_mem_width = ctl[`CTL_MEMWIDTH];
+    wire [31: 0] mem_write_data = t.mem.WriteData;
+    wire [31: 0] mem_addr = t.mem.Addr;
+    wire [31: 0] mem_out = t.mem.ReadData;
+    wire i_or_d = ctl[`CTL_IORD];
+    //wire taken = t.dp.BranchSrc;
+    wire [31: 0] alu_a = t.dp.srcA;
+    wire [31: 0] alu_b = t.dp.srcB;
+    wire [31: 0] ppc = t.dp.PC[31: 2];
+    //wire [5:0] reg_dst = ctl[`CTL_REGDST];
+    //wire reg_write = ctl[`CTL_REGWRITE];
+    
+    wire [5:0] pc_src = ctl[`CTL_PCSRC];
+    
+    generate 
+    genvar i;
+    for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.dp.rf.RegCell[i];end
+    endgenerate
+    
     
     //R-Type
     parameter SPECIAL = 6'b0;
@@ -345,26 +410,78 @@ module MIPS_tb;
     parameter HLT = {BEQ, v0, v0, 16'hffff};
     parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
     
-
-    assign test = t.dmem.RAM[16'h100/4];
-    generate 
-    genvar i;
-    for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
-    endgenerate
     
+    integer j;
     initial
     begin
-        t.mips.dp.rf.RegCell[16] = 64;
+        //Testing ALU slt and shift
+        //for (j = 0; j < 32; j = j + 1) t.mips.dp.rf.RegCell[j] = j;
+        for (j = 0; j < 100; j = j + 1) `ROM[j] = 0;
+
+        `ROM[0] = {ADDI, r0, sp, `STACK_BEGIN_ADDR};//Stack pointer 256
+        
             
         `ROM[1] = {ADDI, r0, t0, 16'd0};
         `ROM[2] = {SB, r0, t0, `IN0_ADDR};
-        
+            
+        //Read seed from IO device
+        `ROM[3] = {LBU, r0, s0, `IN0_ADDR};
+            
+        //loop:
+        `ROM[10] = {ORI, s0, a1, 16'd0};// retrieve seed
+        `ROM[11] = {ADDI, r0, a0, 16'd17};// a = 17
+        `ROM[12] = {ADDI, r0, a2, 16'd3};// c = 3
+        `ROM[13] = {ADDI, r0, a3, 16'd256};// m = 256
+            
+        `ROM[14] = {JAL, 26'd50};// call lcg()
+            
+        `ROM[15] = {ORI, v0, s0, 16'b0};
+        `ROM[16] = {SB, r0, v0, `OUT0_ADDR};
+        `ROM[17] = {BEQ, r0, r0, 16'hfff8};//loop
+            
+            
+        //linear congruential generator  
+        //int lcg(a, seed, c, m) {return seed = (a * seed + c) % m;}
+        `ROM[50] = {6'b011100, a1, a0, t0, 5'b00000, 6'b000010};//MUL
+        `ROM[51] = {6'b0, a2, t0, t0, 5'b00000, ADDU};
+        `ROM[52] = {ORI, t0, a0, 16'b0};
+        `ROM[53] = {6'b000000, r0, a3, a1, 5'b0, OR};
+        //Push
+        `ROM[54] = {ADDI, sp, sp, 16'hfffc};// sp -= 4
+        `ROM[55] = {SW, sp, ra, 16'b0};
+        //Push end
+            
+        //Testing JALR
+        `ROM[56] = {ORI, r0, t2, 14'd80, 2'd0};
+        `ROM[57] = {6'b0, t2, r0, ra, 5'b0, JALR};
+        //`ROM[56] = {JAL, 26'd80};//call mod()
+            
+        //Pop
+        `ROM[58] = {LW, sp, ra, 16'b0};
+        `ROM[59] = {ADDI, sp, sp, 16'h4};// sp -= 4
+        //Pop end
+        `ROM[60] = RET;
+            
+        // int mod(a0, a1) {return v0 = a0 % a1;} 
+        `ROM[80] = {ADDI, a0, v0, 16'b0};//ADDI $2, $4, 0 # $1 <= $2
+        `ROM[81] = {6'b0, a1, v0, t0, 5'b0, SUB};//SUB $8, $3, $2
+        `ROM[82] = {6'b0, r0, v0, t1, 5'b0, SUB};
+        `ROM[83] = {BLEZ, t0, 5'b0, 16'b10};// # if c - b <= 0, then branch 1 (b -= c)
+        `ROM[84] = {BGTZ, t1, 5'b0, 16'b11};// # else if b < 0, then branch 2 (b += c)
+        `ROM[85] = RET;// # else return 
+        `ROM[86] = {6'b0, v0, a1, v0, 5'b0, SUB};//SUB $1, $1, $3 # branch 1
+        `ROM[87] = {BEQ, r0, r0, 16'hfff9};// B -0x7 # loop
+        `ROM[88] = {6'b0, v0, a1, v0, 5'b0, ADD};//ADD $1, $1, $3 # branch 2
+        `ROM[89] = {BEQ, r0, r0, 16'hfff7};// B -0x9 # loop           
+
+        //t.mips.dp.rf.RegCell[16] = 64;
         rst = ~rst;
         #20 ;
         rst = ~rst;
-        repeat (300) #2 clk = ~ clk;
+        repeat (800) #1 clk = ~ clk;
     end
-    
+
+
 endmodule
 
 

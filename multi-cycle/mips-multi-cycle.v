@@ -84,7 +84,8 @@
 `define ALUSRCB_IMM 3'd1
 `define ALUSRCB_IMMU 3'd2//zero-extended immediate
 `define ALUSRCB_IMM4 3'd3//multi-cycle pc increment
-`define ALUSRCB_IMMSH2 3'd4//multi-cycle beq
+`define ALUSRCB_IMM8 3'd4//multi-cycle pc increment
+`define ALUSRCB_IMMSH2 3'd5//multi-cycle beq
 
 
 `define CTL_REGDST 1:0
@@ -125,6 +126,11 @@
 `define CTL_IORD 21
 `define IORD_IMEM 1'd0
 `define IORD_DMEM 1'd1
+
+// Use MEMIR cause IR will be the next instr in MEMORY stage
+`define CTL_IRSRC 13
+`define IRSRC_IR 1'b0
+`define IRSRC_MEM 1'b1
 
 `define STATE_WIDTH 4:0
 
@@ -168,26 +174,8 @@
 `define ALU_SLT 4'b1110
 `define ALU_SLTU 4'b1111
 
-/*
-Question:
-1. Why not generalize states into R-Type, I-Type and J-Type in multi-cycle?
 
-*/
 
-/*
-
-Notes:
-
-1. always @ (*) or always @ (A or B) is combinational logic, only = (blocking) assignments should be used in it.
-
-2. reg is not always a flipflop. In combinational "always @ ()" reg is eventually a wire, while in sequential "always", reg can be a flipflop.
-
-3. In an always @ (*) block, each value that is assigned in at least one place must be assigned to a non-trivial value during every ‘execution’ of the always @ (*) block. That's why 'else' should not be omitted after an 'if', otherwise, this will cause a latch to deal with the unassigned situation.
-(http://inst.eecs.berkeley.edu/~eecs151/sp19/files/verilog/always_at_blocks.pdf)
-
-4. Initialization
-
-*/
 
 
 module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
@@ -200,10 +188,10 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     
     reg [31: 0] data;
     wire [6: 0] C;
-    wire clk, rst;
+    wire clk, clk1_4hz, rst;
     
-    wire [7: 0] out = mt.dmem.RAM[`OUT0_ADDR/4];
-    wire [31: 0] pc = mt.PC;
+    wire [7: 0] out = mt.mem.RAM[`OUT0_ADDR/4];
+    wire [31: 0] pc = mt.dp.PC;
     
     wire [3: 0] d0 = out % 10;
     wire [3: 0] d1 = (out / 10) % 10;
@@ -214,9 +202,9 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     wire [3: 0] d6 = (pc / 100) % 10;
     wire [3: 0] d7 = (pc / 1000) % 10;
     
-    clkdiv cd(.mclk(CLK100MHZ), .clk(clk));
+    clkdiv cd(.mclk(CLK100MHZ), .clk(clk),.clk1_4hz(clk1_4hz));
     
-    MIPSTop mt(clk, rst);
+    MIPSTop mt(SW[3] ? clk1_4hz|SW[2] : clk|SW[2], rst);//Stopping, running or running in low speed
     
     Display dis(CLK100MHZ, AN, C, 
         {d7, d6, d5, d4, d3, d2, d1, d0});
@@ -225,9 +213,9 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     assign rst = SW[0];
     
     // Input Mapping 
-    assign mt.dmem.iwrite = SW[0] & SW[1];
-    assign mt.dmem.iaddr = `IN0_ADDR;
-    assign mt.dmem.idata = SW[15:4];
+    assign mt.mem.iwrite = SW[0] & SW[1];
+    assign mt.mem.iaddr = `IN0_ADDR;
+    assign mt.mem.idata = SW[15:4];
     
 endmodule
 
@@ -300,6 +288,7 @@ module clkdiv(
     output clk380,
     //output clk6000,
     //output clk190,
+    output clk1_4hz,
     output clk
     );
     reg [27:0]q;
@@ -309,7 +298,7 @@ module clkdiv(
     assign clk380 = q[17];//380hz
     //assign clk6000 = q[13];//6000hz 
     //assign clk190 = q[18];//190hz 
-    //assign clk1_4hz=q[24];         
+    assign clk1_4hz=q[24];         
     assign clk = q[20];
     //assign clk1_1hz=q[26];         
 endmodule
@@ -415,7 +404,91 @@ module Memory (CLK, Addr, WriteEnable, WriteData, ReadData, Sign, Width);
             
         else if (iwrite)
             RAM[iaddr[31: 2]] <= idata;//For input 
+    
+    //R-Type
+    parameter SPECIAL = 6'b0;
+    parameter SLL = 6'b000000, SRL = 6'b000010, SRA = 6'b000011, SLLV = 6'b000100, SRLV = 6'b000110, SRAV = 6'b000111, JR = 6'b001000, JALR = 6'b001001, ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010, SUBU = 6'b100011, AND = 6'b100100, OR = 6'b100101, XOR = 6'b100110, NOR = 6'b100111, SLT = 6'b101010, SLTU = 6'b101011, MUL = 6'b000010;
+
+    //I-Type
+    parameter BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111, ADDI = 6'b001000, ADDIU = 6'b001001, SLTI = 6'b001010, SLTIU = 6'b001011, ANDI = 6'b001100, ORI = 6'b001101, XORI = 6'b001110, LUI = 6'b001111, LB = 6'b100000, LH = 6'b100001, LW = 6'b100011, LBU = 6'b100100, LHU = 6'b100101, SB = 6'b101000, SH = 6'b101001, SW = 6'b101011;
+    
+    parameter J = 6'b000010, JAL = 6'b000011;
+    
+    // Registers 
+    parameter r0 = 5'b0;
+    parameter v0 = 5'b00010, v1 = 5'b00011;//Return values from function
+    parameter a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111;//Arguments to function
+    parameter ra = 5'b11111;//Return address register
+    parameter t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011;//Temporary data
+    parameter s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17;//Saved Registers, preserved by subprograms
+    parameter sp = 5'b11101;//Stack Pointer
+    
+    
+    parameter HLT = {BEQ, v0, v0, 16'hffff};
+    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
+    
+    
+    
+    initial
+    begin
+    RAM[0] = {ADDI, r0, sp, `STACK_BEGIN_ADDR};//Stack pointer 256
             
+    //RAM[1] = {ADDI, r0, t0, 16'd0};
+    //RAM[2] = {SB, r0, t0, `IN0_ADDR};
+            
+    //Read seed from IO device
+    RAM[3] = {LBU, r0, s0, `IN0_ADDR};
+            
+    //loop:
+    RAM[10] = {ORI, s0, a1, 16'd0};// retrieve seed
+    RAM[11] = {ADDI, r0, a0, 16'd17};// a = 17
+    RAM[12] = {ADDI, r0, a2, 16'd3};// c = 3
+    RAM[13] = {ADDI, r0, a3, 16'd256};// m = 256
+            
+    RAM[14] = {JAL, 26'd50};// call lcg()
+            
+    RAM[15] = {ORI, v0, s0, 16'b0};
+    RAM[16] = {SB, r0, v0, `OUT0_ADDR};
+    RAM[17] = {BEQ, r0, r0, 16'hfff8};//loop
+            
+            
+    //linear congruential generator  
+    //int lcg(a, seed, c, m) {return seed = (a * seed + c) % m;}
+    RAM[50] = {6'b011100, a1, a0, t0, 5'b00000, 6'b000010};//MUL
+    RAM[51] = {6'b0, a2, t0, t0, 5'b00000, ADDU};
+    RAM[52] = {ORI, t0, a0, 16'b0};
+    RAM[53] = {6'b000000, r0, a3, a1, 5'b0, OR};
+    //Push
+    RAM[54] = {ADDI, sp, sp, 16'hfffc};// sp -= 4
+    RAM[55] = {SW, sp, ra, 16'b0};
+    //Push end
+            
+    //Testing JARL
+    RAM[56] = {ORI, r0, t2, 14'd80, 2'd0};
+    RAM[57] = {6'b0, t2, r0, ra, 5'b0, JALR};
+    //`ROM[56] = {JAL, 26'd80};//call mod()
+            
+    //Pop
+    RAM[58] = {LW, sp, ra, 16'b0};
+    RAM[59] = {ADDI, sp, sp, 16'h4};// sp -= 4
+    //Pop end
+    RAM[60] = RET;
+            
+    // int mod(a0, a1) {return v0 = a0 % a1;} 
+    RAM[80] = {ADDI, a0, v0, 16'b0};//ADDI $2, $4, 0 # $1 <= $2
+    RAM[81] = {6'b0, a1, v0, t0, 5'b0, SUB};//SUB $8, $3, $2
+    RAM[82] = {6'b0, r0, v0, t1, 5'b0, SUB};
+    RAM[83] = {BLEZ, t0, 5'b0, 16'b10};// # if c - b <= 0, then branch 1 (b -= c)
+    RAM[84] = {BGTZ, t1, 5'b0, 16'b11};// # else if b < 0, then branch 2 (b += c)
+    RAM[85] = RET;// # else return 
+    RAM[86] = {6'b0, v0, a1, v0, 5'b0, SUB};//SUB $1, $1, $3 # branch 1
+    RAM[87] = {BEQ, r0, r0, 16'hfff9};// B -0x7 # loop
+    RAM[88] = {6'b0, v0, a1, v0, 5'b0, ADD};//ADD $1, $1, $3 # branch 2
+    RAM[89] = {BEQ, r0, r0, 16'hfff7};// B -0x9 # loop           
+
+    
+    
+    end        
 endmodule
 
 
@@ -431,7 +504,7 @@ module Datapath (CLK, RST, CTL, BranchSrc, MemReadData, MemWriteData, MemAddr, Z
     output [31: 0] MemAddr;
     output [31: 0] MemWriteData;//data to wirte DMem
     output ZF, OF, SF;
-    output [31: 0] Instr;
+    output [31: 0] Instr;//The current instr
    
     wire [31: 0] PC, pcNext, pcBranch, pcNextBranch; 
     
@@ -443,15 +516,17 @@ module Datapath (CLK, RST, CTL, BranchSrc, MemReadData, MemWriteData, MemAddr, Z
     
     wire [31: 0] srcA, srcB;//ALU
     wire [31: 0] aluout;//aluout register
-    wire [31: 0] MemInstr;
+
+    wire [31: 0] instrMem, instr;//In Memory stage, we use instr since instr has been overidden by next instr
     
     assign MemAddr = CTL[`CTL_IORD] == `IORD_IMEM ? PC : aluout;
     
     Register #(32) PCReg (CLK, RST, CTL[`CTL_PCWRITE], pcNext, PC);
-    Register #(32) IR (CLK, RST, CTL[`CTL_IRWRITE], MemReadData, Instr);
+    Register #(32) IR (CLK, RST, CTL[`CTL_IRWRITE], MemReadData, instr);
     
-    //To be 
-    Register #(32) MemIR (CLK, RST, 1, Instr, MemInstr);//Add 
+    //To be modify
+    Register #(32) MemIR (CLK, RST, 1, instr, instrMem);//Add 
+    assign Instr = CTL[`CTL_IRSRC] == `IRSRC_MEM ? instrMem : instr;
     
     Register #(32) RA (CLK, RST, 1, readData1, A);
     Register #(32) RB (CLK, RST, 1, readData2, B);
@@ -460,6 +535,7 @@ module Datapath (CLK, RST, CTL, BranchSrc, MemReadData, MemWriteData, MemAddr, Z
 
     ShiftLeft2 immsh (signImm, signImmSh2);//imm shift
     SignExtend signext (Instr[15: 0], signImm);
+
     //assign signImm = {{16{Instr[15]}}, Instr[15: 0]};
     //assign signImmSh2 = {signImm[29:0], 2'b00};
 
@@ -496,6 +572,7 @@ module Datapath (CLK, RST, CTL, BranchSrc, MemReadData, MemWriteData, MemAddr, Z
         = CTL[`CTL_ALUSRCB] == `ALUSRCB_IMM ? signImm
         : CTL[`CTL_ALUSRCB] == `ALUSRCB_IMMU ? {16'b0, Instr[15: 0]}
         : CTL[`CTL_ALUSRCB] == `ALUSRCB_IMM4 ? 32'd4
+        : CTL[`CTL_ALUSRCB] == `ALUSRCB_IMM8 ? 32'd8
         : CTL[`CTL_ALUSRCB] == `ALUSRCB_IMMSH2 ? signImmSh2
         : B;
     
@@ -602,7 +679,7 @@ module ControlUnit(CLK, RST, Opcode, Func, ZF, SF, OF, CTL, BranchSrc);
                 nextState = `STATE_DECODE;
 
             `STATE_DECODE:
-                if (Opcode == `OP_SPECIAL && (Func == `FUNC_JR || Opcode == `FUNC_JALR))
+                if (Opcode == `OP_SPECIAL && (Func == `FUNC_JR || Func == `FUNC_JALR))
                     nextState = `STATE_FETCH;
                 else if (Opcode == `OP_J || Opcode == `OP_JAL)
                     nextState = `STATE_FETCH;
@@ -673,17 +750,19 @@ module ControlUnit(CLK, RST, Opcode, Func, ZF, SF, OF, CTL, BranchSrc);
 
             else if (Opcode == `OP_JAL)
             begin 
+                CTL[`CTL_ALUSRCB] = `ALUSRCB_IMM4;
                 CTL[`CTL_PCSRC] = `PCSRC_JUMPIMM;
                 CTL[`CTL_REGWRITE] = 1;
                 CTL[`CTL_REGDST] = `REGDST_RA;
                 CTL[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_PCPLUS4;
             end
 
-            else if (Func == `FUNC_JR)
+            else if (Opcode == `OP_SPECIAL && Func == `FUNC_JR)
                 CTL[`CTL_PCSRC] = `PCSRC_JUMPREG;
 
-            else if (Func == `FUNC_JALR)
+            else if (Opcode == `OP_SPECIAL && Func == `FUNC_JALR)
             begin
+                CTL[`CTL_ALUSRCB] = `ALUSRCB_IMM4;
                 CTL[`CTL_PCSRC] = `PCSRC_JUMPREG;
                 CTL[`CTL_REGWRITE] = 1;
                 CTL[`CTL_REGDST] = `REGDST_RTYPE;
@@ -773,11 +852,13 @@ module ControlUnit(CLK, RST, Opcode, Func, ZF, SF, OF, CTL, BranchSrc);
         `STATE_MEMORY:
         begin
             CTL[`CTL_IORD] = `IORD_DMEM;
+            CTL[`CTL_IRSRC] = `IRSRC_MEM;
             CTL[`CTL_MEMWRITE] = 0;
             CTL[`CTL_MEMSIGNED] = 1;
 
             CTL[`CTL_REGWRITE] = 1;
-            CTL[`CTL_REGDST] = `REGDST_RTYPE;
+            CTL[`CTL_REGWRITE_DATA] = `REGWRITE_DATA_FROM_MEMORY;
+            CTL[`CTL_REGDST] = `REGDST_ITYPE;
 
             case (Opcode)
                 `OP_LB: CTL[`CTL_MEMWIDTH] = `MEMWIDTH_8;
