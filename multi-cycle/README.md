@@ -128,7 +128,7 @@ Since many instructions of this type have been used and tested in other simulati
 ```
 And my simulation result is 
 
-<img src="./shift_sim.png" width="50%"/>
+![](./shift_sim.png)
 
 This proves the correctness of shift instructions, ORI and LUI.
 
@@ -190,7 +190,7 @@ As we can see above, if our CPU works normally, then the program should not halt
 
 To check correctness, we just need to focus on the value of `v0`, which is labeled as `test` below, when PC is in `110~114`.
 
-<img src="./load&store_sim.png" width="50%"/>
+![](./load&store_sim.png)
 
 ### *Jump*
 
@@ -216,7 +216,7 @@ $$
 
 And the simulation is shown below
 
-<img src="./jump_sim.png" width="50%"/>
+![](./jump_sim.png) 
 
 
 
