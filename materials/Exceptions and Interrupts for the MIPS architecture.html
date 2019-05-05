@@ -1,0 +1,841 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 11">
+<meta name="Originator" content="Microsoft Word 11">
+<link rel="File-List" href="http://people.cs.pitt.edu/~don/coe1502/current/Unit4a/Unit4a_files/filelist.xml">
+<link rel="Edit-Time-Data" href="http://people.cs.pitt.edu/~don/coe1502/current/Unit4a/Unit4a_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Exceptions and Interrupts for the MIPS architecture</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Optical Computing Labratory</o:Author>
+  <o:LastAuthor>sdickerson</o:LastAuthor>
+  <o:Revision>5</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2005-11-16T19:14:00Z</o:Created>
+  <o:LastSaved>2007-03-28T18:17:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1302</o:Words>
+  <o:Characters>7425</o:Characters>
+  <o:Company>University of Pittsburgh</o:Company>
+  <o:Lines>61</o:Lines>
+  <o:Paragraphs>17</o:Paragraphs>
+  <o:CharactersWithSpaces>8710</o:CharactersWithSpaces>
+  <o:Version>11.8122</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	color:black;
+	font-weight:bold;}
+h3
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	color:black;
+	font-weight:bold;}
+h4
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:4;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:black;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	color:black;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:46144767;
+	mso-list-template-ids:606635738;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:239141712;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-2143006924 -821254134 868495432 2142250012 -1581347756 400483682 -1709555070 -1058618766 765887972 222486044;}
+@list l1:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:545333409;
+	mso-list-type:hybrid;
+	mso-list-template-ids:268893146 1632374986 1507336802 -1835735660 51525098 -560303938 -905515642 -604868708 619744998 -1995789364;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:754203382;
+	mso-list-template-ids:1610875932;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:1464926930;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-491477950 -254502058 -1663522574 -84910876 818551006 1391773426 -1146092640 1652345498 -14760452 290636216;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5
+	{mso-list-id:1657806003;
+	mso-list-template-ids:2082113086;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body style="tab-interval:.5in" bgproperties="fixed" vlink="purple" link="blue" lang="EN-US" bgcolor="white" background="Exceptions%20and%20Interrupts%20for%20the%20MIPS%20architecture_files/Unitbkg.jpg" alink="#FF0000">
+
+<div class="Section1">
+
+<h2 style="text-align:center" align="center">Unit 4a: Exception and Interrupt
+handling in the MIPS architecture</h2>
+
+<h3>Introduction</h3>
+
+<p>In this unit, you will learn how to add interrupt and exception support to your
+<span class="SpellE">multicycle</span> CPU design. For additional information,
+please refer section 5.6 and appendix A in the Hennessy and Patterson textbook.
+Note: you will only be implementing a subset of the exception and interrupt
+functionality of the MIPS architecture. Therefore, use this page as your
+definitive source of information regarding this unit. </p>
+
+<h3>Exceptions and Interrupts defined</h3>
+
+<p><i>Exceptions</i> and <i>interrupts</i> are unexpected events that disrupt
+the normal flow of instruction execution. An exception is an unexpected event
+from within the processor. An interrupt is an unexpected event from outside the
+processor. You are to implement exception and interrupt handling in your <span class="SpellE">multicycle</span> CPU design. </p>
+
+<p>When an exception or interrupt occurs, the hardware begins executing code
+that performs an action in response to the exception. This action may involve
+killing a process, outputting a error message, communicating with an external
+device, or horribly crashing the entire computer system by initiating a
+"Blue Screen of Death" and halting the CPU. The instructions
+responsible for this action reside in the <b><i>operating system kernel</i></b>,
+and the code that performs this action is called the <i>interrupt handler code</i>.
+You can think of handler code as an operating system subroutine. After the
+handler code is executed, it may be possible to continue execution after the
+instruction where the execution or interrupt occurred. </p>
+
+<h3>Exceptions: Types</h3>
+
+<p>For your project, there are three events that will trigger an exception: <i>arithmetic
+overflow</i>, <i>undefined instruction</i>, and <i>system call</i>. </p>
+
+<p><b><i>Arithmetic overflow</i></b> occurs during the execution of an add, <span class="SpellE">addi</span>, or sub instruction. If the result of the computation
+is too large or too small to hold in the result register, the <i>Overflow</i>
+output of the ALU will become high during the execute state. This event
+triggers an exception. </p>
+
+<p><b><i>Undefined instruction</i></b> occurs when an unknown instruction is
+fetched. This exception is caused by an instruction in the IR that has an
+unknown <span class="SpellE">opcode</span> or an R-type instruction that has an
+unknown function code. </p>
+
+<p><b><i>System call</i></b> occurs when the processor executes a <span class="SpellE">syscall</span> instruction. <span class="SpellE">Syscall</span>
+instructions are used to implement operating system services (functions). </p>
+
+<h3>Interrupts</h3>
+
+<p>We also want to have to ability to service external interrupts. This is
+useful if a device external to the processor needs attention. To do this, we'll
+add 2 pins to the processor. The first pin, called IRQ (interrupt request),
+will be an input that will allow an external device to interrupt the processor.
+Since we don't want the processor to service any external interrupts before it
+is finished executing the current instruction, we may have to make the external
+device wait for several clock cycles. Because of this, we need a way to tell
+the external device that we've serviced its interrupt. We'll solve this problem
+by adding the second pin, called IACK (interrupt acknowledge), that will be an
+output. The following waveform defines the timing for external interrupt
+requests. </p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><img id="_x0000_i1025" src="Exceptions%20and%20Interrupts%20for%20the%20MIPS%20architecture_files/wave.jpg" width="900" height="147"><br>
+<b>Figure 1: Timing diagram for external interrupts</b></p>
+
+<h3>What to do when an exception or interrupt occurs</h3>
+
+<p>When an exception or interrupt occurs, your processor may perform the
+following actions: </p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l4 level1 lfo3;tab-stops:list .5in">move the current PC into
+     another register, call the EPC </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l4 level1 lfo3;tab-stops:list .5in">record the reason for the
+     exception in the Cause register </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l4 level1 lfo3;tab-stops:list .5in">automatically disable further
+     interrupts or <span class="SpellE">execptions</span> from <span class="SpellE">occuring</span>, by left-shifting the Status register </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l4 level1 lfo3;tab-stops:list .5in">change control (jump) to a
+     hardwired exception handler address </li>
+</ul>
+
+<p>To return from a handler, your processor may perform the following actions: </p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo6;tab-stops:list .5in">move the contents of the EPC
+     register to the PC. </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo6;tab-stops:list .5in">re-enable interrupts and
+     exceptions, by right-shifting the Status register </li>
+</ul>
+
+<h3>Dealing with multiple types of exceptions and interrupts</h3>
+
+<p>In a situation where multiple types of exceptions and interrupts can occur,
+there must be a mechanism in place where different handler code can be executed
+for different types of events. In general, there are two methods for handling
+this problem: <i>polled interrupts</i> and <i>vectored interrupts</i>. </p>
+
+<ol start="1" type="1">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo9;tab-stops:list .5in">The processor can branch to a
+     certain address that begins a sequence of instructions that check the
+     cause of the exception and branch to handler code for the type of
+     exception encountered. This is called <i>polled exception handling</i>. </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo9;tab-stops:list .5in">The processor can branch to a
+     different address for each type of exception. Each exception address is
+     separated by only one word. A jump instruction is placed at each of these addresses
+     that forces the processor to jump to the handler code for each type of
+     exception. This method is called <i>vectored exception handling</i>. </li>
+</ol>
+
+<p>MIPS uses the first method (polled interrupts), so we'll implement exception
+handling that way. So, in our case, all exceptions will cause the processor to
+jump to a "hardwired" instruction address. A sequence of instructions
+starting at this address will check the cause of the exception and act
+accordingly. We will set this address to 00000004 (in hex). Also, we'll need to
+use the Cause register to record the cause of the exception or interrupt before
+jumping to the handler code. </p>
+
+<h4>Cause register</h4>
+
+<p class="MsoNormal">The Cause register is a 32-bit register, but only certain
+fields on that register will be used. Bits 1 down to 0 will be set to describe
+the cause of the last interrupt/exception. The following table codes the
+interrupt/exception causes: </p>
+
+<div align="center">
+
+<table class="MsoNormalTable" style="mso-cellspacing:1.5pt;
+ mso-padding-alt:0in 0in 0in 0in" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Number</b></p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Name</b></p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Description</b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">00</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">INT</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">External Interrupt</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">01</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">IBUS</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Instruction bus error (invalid instruction)</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">10</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">OVF</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Arithmetic overflow</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;mso-yfti-lastrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">11</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">SYSCALL</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">System call</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<h3>Disabling interrupts and exceptions</h3>
+
+<p>We require a way to disable interrupts and exceptions. This is necessary to
+prevent exceptions and interrupts from <span class="SpellE">occuring</span>
+during handler execution. In order to be able to do this, we need an additional
+register that can be used to mask exception and interrupt types. This is called
+the Status register. </p>
+
+<h4>Status register</h4>
+
+<p>The status register is also a 32-bit register. It too, only has certain
+fields that are used by the processor. Bits 3 down to 0 will define <i>masks</i>
+for the three types of interrupts/exceptions. If an interrupt/exception occurs
+when its mask bit is current set to 0, then the interrupt/exception will be
+ignored. The mask bits are used according to the following table: </p>
+
+<div align="center">
+
+<table class="MsoNormalTable" style="mso-cellspacing:1.5pt;
+ mso-padding-alt:0in 0in 0in 0in" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Bit</b></p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Interrupt/exception</b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">3</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">INT</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">2</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">IBUS</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">OVF</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;mso-yfti-lastrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">0</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">SYSCALL</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<h3>Control for exceptions</h3>
+
+<p>You will need to add control and <span class="SpellE">datapaths</span> to
+support exceptions and interrupts. When an exception or interrupt occurs, the
+following must be done: </p>
+
+<pre>&nbsp;</pre><pre>EPC &lt;= PC</pre><pre>Cause &lt;= (cause code for event)</pre><pre>Status &lt;= Status &lt;&lt; 4</pre><pre>PC &lt;= (handler address)</pre>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">To
+return from an exception or <span class="SpellE">datapath</span>, the following
+must be done: </p>
+
+<pre>&nbsp;</pre><pre>PC &lt;= EPC</pre><pre>Status &lt;= Status &gt;&gt; 4</pre>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">You
+will also have to add control to support four additional instructions, mfc0,
+mtc0, <span class="SpellE">syscall</span>, and rte. </p>
+
+<p class="MsoNormal" style="text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt" align="center"><img id="_x0000_i1026" src="Exceptions%20and%20Interrupts%20for%20the%20MIPS%20architecture_files/fig548.jpg" width="800" height="463"><br>
+<b>Figure 2: Example top-level block diagram with exception handling hardware
+added. Note: this design doesn't include the Status register and doesn't use
+the Cause register the same way we are.</b></p>
+
+<h3 style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Additional
+instructions needed</h3>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Several
+instructions must be added to your instruction set in order to use the
+interrupt/exception functionality of your processor. These instructions are <i>mfc0
+<span class="SpellE">rt,rd</span></i> and <i>mtc0 <span class="SpellE">rd,rt</span></i>,
+which stand for "move from coprocessor 0" and "move from
+coprocessor 0". The new registers that <span class="SpellE">facilite</span>
+interrupt and exception handling, Status, Cause, and EPC, can be accessed via
+these instructions. These new instructions transfer data between the exception
+registers and the general-purpose registers. Also, you will need the <span class="SpellE">syscall</span> instruction. These instructions are encoded in the
+following way: </p>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><span class="SpellE"><b>syscall</b></span> </p>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Executes
+a system call. The system call number should be set in register $v0 prior to
+executing the system call. </p>
+
+<table class="MsoNormalTable" style="width:480.0pt;
+ mso-cellspacing:1.5pt;mso-padding-alt:0in 0in 0in 0in" width="640" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:57.75pt;padding:.75pt .75pt .75pt .75pt" width="77">
+  <p class="MsoNormal" style="text-align:center" align="center">31-26</p>
+  </td>
+  <td style="width:52.5pt;padding:.75pt .75pt .75pt .75pt" width="70">
+  <p class="MsoNormal" style="text-align:center" align="center">25-6</p>
+  </td>
+  <td style="width:61.5pt;padding:.75pt .75pt .75pt .75pt" width="82">
+  <p class="MsoNormal" style="text-align:center" align="center">5-0</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+  <td style="width:1.25in;padding:.75pt .75pt .75pt .75pt" width="120">
+  <p class="MsoNormal" style="text-align:center" align="center">000000</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>00000000000000000000</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">001100</p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><span class="SpellE"><b>rfe</b></span> </p>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Return
+from exception. </p>
+
+<table class="MsoNormalTable" style="width:480.0pt;
+ mso-cellspacing:1.5pt;mso-padding-alt:0in 0in 0in 0in" width="640" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:57.75pt;padding:.75pt .75pt .75pt .75pt" width="77">
+  <p class="MsoNormal" style="text-align:center" align="center">31-26</p>
+  </td>
+  <td style="width:57.75pt;padding:.75pt .75pt .75pt .75pt" width="77">
+  <p class="MsoNormal" style="text-align:center" align="center">25</p>
+  </td>
+  <td style="width:52.5pt;padding:.75pt .75pt .75pt .75pt" width="70">
+  <p class="MsoNormal" style="text-align:center" align="center">24-6</p>
+  </td>
+  <td style="width:61.5pt;padding:.75pt .75pt .75pt .75pt" width="82">
+  <p class="MsoNormal" style="text-align:center" align="center">5-0</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+  <td style="width:1.25in;padding:.75pt .75pt .75pt .75pt" width="120">
+  <p class="MsoNormal" style="text-align:center" align="center">010000</p>
+  </td>
+  <td style="width:1.25in;padding:.75pt .75pt .75pt .75pt" width="120">
+  <p class="MsoNormal" style="text-align:center" align="center">1</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>0000000000000000000</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">010000</p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><b>mfc0
+rd, <span class="SpellE">rt</span></b> </p>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Moves
+data from coprocessor 0 register <span class="SpellE">rt</span> to general
+purpose register rd. </p>
+
+<table class="MsoNormalTable" style="width:480.0pt;
+ mso-cellspacing:1.5pt;mso-padding-alt:0in 0in 0in 0in" width="640" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:57.75pt;padding:.75pt .75pt .75pt .75pt" width="77">
+  <p class="MsoNormal" style="text-align:center" align="center">31-26</p>
+  </td>
+  <td style="width:52.5pt;padding:.75pt .75pt .75pt .75pt" width="70">
+  <p class="MsoNormal" style="text-align:center" align="center">25-21</p>
+  </td>
+  <td style="width:61.5pt;padding:.75pt .75pt .75pt .75pt" width="82">
+  <p class="MsoNormal" style="text-align:center" align="center">20-16</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">15-11</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">10-0</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+  <td style="width:1.25in;padding:.75pt .75pt .75pt .75pt" width="120">
+  <p class="MsoNormal" style="text-align:center" align="center">010000</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>00000</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><span class="SpellE"><i>rt</i></span></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>rd</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">00000000000</p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><b>mtc0
+rd, <span class="SpellE">rt</span></b> </p>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">Moves
+data from general purpose register <span class="SpellE">rt</span> to coprocessor
+0 register rd. </p>
+
+<table class="MsoNormalTable" style="width:480.0pt;
+ mso-cellspacing:1.5pt;mso-padding-alt:0in 0in 0in 0in" width="640" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="width:57.75pt;padding:.75pt .75pt .75pt .75pt" width="77">
+  <p class="MsoNormal" style="text-align:center" align="center">31-26</p>
+  </td>
+  <td style="width:52.5pt;padding:.75pt .75pt .75pt .75pt" width="70">
+  <p class="MsoNormal" style="text-align:center" align="center">25-21</p>
+  </td>
+  <td style="width:61.5pt;padding:.75pt .75pt .75pt .75pt" width="82">
+  <p class="MsoNormal" style="text-align:center" align="center">20-16</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">15-11</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">10-0</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+  <td style="width:1.25in;padding:.75pt .75pt .75pt .75pt" width="120">
+  <p class="MsoNormal" style="text-align:center" align="center">010000</p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>00100</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><span class="SpellE"><i>rt</i></span></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center"><i>rd</i></p>
+  </td>
+  <td style="width:75.0pt;padding:.75pt .75pt .75pt .75pt" width="100">
+  <p class="MsoNormal" style="text-align:center" align="center">00000000000</p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt">The
+following table defines coprocessor 0's register set: </p>
+
+<div align="center">
+
+<table class="MsoNormalTable" style="mso-cellspacing:1.5pt;
+ mso-padding-alt:0in 0in 0in 0in" cellpadding="0" border="1">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Register name</b></p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Register number</b></p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Usage</b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Status</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">12</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Interrupt mask and enable bits</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Cause</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">13</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Exception type</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3;mso-yfti-lastrow:yes">
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">EPC</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">14</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Register containing the following address of the
+  instruction where the exception occurred</p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt"><span style="color:windowtext">&nbsp;<o:p></o:p></span></p>
+
+</div>
+
+
+
+
+</body></html>
