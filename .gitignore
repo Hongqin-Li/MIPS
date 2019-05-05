@@ -1,2 +1,6 @@
 *.runs/*
+lab*
 ./vivado*
+
+materials/
+notes/
