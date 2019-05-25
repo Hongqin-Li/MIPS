@@ -1,0 +1,23 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun May  5 14:45:45 2019
+# Process ID: 31545
+# Current directory: /home/lhq/Workspace/MIPS
+# Command line: vivado
+# Log file: /home/lhq/Workspace/MIPS/vivado.log
+# Journal file: /home/lhq/Workspace/MIPS/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.xpr
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1

@@ -1,0 +1,41 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun May  5 14:45:45 2019
+# Process ID: 31545
+# Current directory: /home/lhq/Workspace/MIPS
+# Command line: vivado
+# Log file: /home/lhq/Workspace/MIPS/vivado.log
+# Journal file: /home/lhq/Workspace/MIPS/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-509] GeneratedRun file for 'impl_1' not found
+WARNING: [filemgmt 56-3] IPUserFilesDir: Could not find the directory '/home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/lhq/Workspace/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:14 ; elapsed = 00:00:05 . Memory (MB): peak = 6309.219 ; gain = 77.480 ; free physical = 890 ; free virtual = 7856
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_runs impl_1 -to_step write_bitstream
+[Sun May  5 14:46:44 2019] Launched synth_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/synth_1/runme.log
+[Sun May  5 14:46:44 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/impl_1/runme.log
+reset_run impl_1 -prev_step 
+WARNING: [Vivado 12-1017] Problems encountered:
+1. PID not specified
+
+launch_runs impl_1
+[Sun May  5 17:21:14 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Sun May  5 17:25:09 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/impl_1/runme.log
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun May  5 17:29:02 2019...
