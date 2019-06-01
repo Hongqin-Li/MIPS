@@ -1,0 +1,92 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon May 27 16:08:28 2019
+# Process ID: 12047
+# Current directory: /home/lhq/Workspace/MIPS
+# Command line: vivado
+# Log file: /home/lhq/Workspace/MIPS/vivado.log
+# Journal file: /home/lhq/Workspace/MIPS/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/lhq/Workspace/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:20 ; elapsed = 00:00:16 . Memory (MB): peak = 6368.746 ; gain = 98.160 ; free physical = 1577 ; free virtual = 8179
+update_compile_order -fileset sources_1
+open_project /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-3] IPUserFilesDir: Could not find the directory '/home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/lhq/Workspace/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:35 ; elapsed = 00:00:16 . Memory (MB): peak = 6442.586 ; gain = 31.016 ; free physical = 1528 ; free virtual = 8143
+update_compile_order -fileset sources_1
+current_project lab3-pipeline
+reset_run synth_1
+launch_runs synth_1
+[Mon May 27 16:15:29 2019] Launched synth_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1
+[Mon May 27 16:17:28 2019] Launched synth_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/synth_1/runme.log
+reset_run synth_1
+launch_runs synth_1
+[Mon May 27 16:19:06 2019] Launched synth_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/synth_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2018.3
+  **** Build date : Dec  6 2018-23:53:53
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292710309A
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+launch_runs impl_1
+[Mon May 27 16:26:20 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream
+[Mon May 27 16:29:57 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+current_project lab2-multi-cycle
+close_project
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.hw/webtalk/labtool_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/lhq/Workspace/MIPS/multi-cycle/lab2-multi-cycle/lab2-multi-cycle.hw/webtalk/usage_statistics_ext_labtool.xml' has been successfully sent to Xilinx on Mon May 27 16:34:42 2019. For additional details about this file, please refer to the WebTalk help file at /home/lhq/Workspace/Xilinx/Vivado/2018.3/doc/webtalk_introduction.html.
+webtalk_transmit: Time (s): cpu = 00:00:00.99 ; elapsed = 00:00:05 . Memory (MB): peak = 367.105 ; gain = 0.000 ; free physical = 2334 ; free virtual = 7370
+INFO: [Common 17-206] Exiting Webtalk at Mon May 27 16:34:42 2019...
+close_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 7374.051 ; gain = 0.000 ; free physical = 2356 ; free virtual = 7394
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon May 27 16:47:08 2019...

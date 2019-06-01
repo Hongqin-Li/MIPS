@@ -191,6 +191,7 @@ Notes:
 */
 
 
+
 module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     
     input CLK100MHZ;
@@ -201,7 +202,7 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     
     reg [31: 0] data;
     wire [6: 0] C;
-    wire clk, rst;
+    wire clk, clk1_4hz, rst;
     
     wire [7: 0] out = mt.dmem.RAM[`OUT0_ADDR/4];
     wire [31: 0] pc = mt.PC;
@@ -215,9 +216,9 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     wire [3: 0] d6 = (pc / 100) % 10;
     wire [3: 0] d7 = (pc / 1000) % 10;
     
-    clkdiv cd(.mclk(CLK100MHZ), .clk(clk));
+    clkdiv cd(.mclk(CLK100MHZ), .clk(clk),.clk1_4hz(clk1_4hz));
     
-    MIPSTop mt(clk, rst);
+    MIPSTop mt(SW[3] ? clk1_4hz|SW[2] : clk|SW[2], rst);//Stopping, running or running in low speed
     
     Display dis(CLK100MHZ, AN, C, 
         {d7, d6, d5, d4, d3, d2, d1, d0});
@@ -301,6 +302,7 @@ module clkdiv(
     output clk380,
     //output clk6000,
     //output clk190,
+    output clk1_4hz,
     output clk
     );
     reg [27:0]q;
@@ -310,7 +312,7 @@ module clkdiv(
     assign clk380 = q[17];//380hz
     //assign clk6000 = q[13];//6000hz 
     //assign clk190 = q[18];//190hz 
-    //assign clk1_4hz=q[24];         
+    assign clk1_4hz=q[24];         
     assign clk = q[20];
     //assign clk1_1hz=q[26];         
 endmodule

@@ -1,0 +1,1496 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sat May 25 09:46:49 2019
+# Process ID: 19357
+# Current directory: /home/lhq/Workspace/MIPS
+# Command line: vivado
+# Log file: /home/lhq/Workspace/MIPS/vivado.log
+# Journal file: /home/lhq/Workspace/MIPS/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/lhq/Workspace/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:17 ; elapsed = 00:00:16 . Memory (MB): peak = 6343.121 ; gain = 60.465 ; free physical = 117 ; free virtual = 6573
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse /home/lhq/Workspace/MIPS/pipeline/testbench.v
+update_compile_order -fileset sim_1
+set_property top Instr_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'Instr_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj Instr_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot Instr_tb_behav xil_defaultlib.Instr_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'writeData' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:914]
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:998]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.Instr_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot Instr_tb_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim/xsim.dir/Instr_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim/xsim.dir/Instr_tb_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Sat May 25 11:31:12 2019. For additional details about this file, please refer to the WebTalk help file at /home/lhq/Workspace/Xilinx/Vivado/2018.3/doc/webtalk_introduction.html.
+webtalk_transmit: Time (s): cpu = 00:00:00.97 ; elapsed = 00:00:05 . Memory (MB): peak = 378.176 ; gain = 0.000 ; free physical = 329 ; free virtual = 6466
+INFO: [Common 17-206] Exiting Webtalk at Sat May 25 11:31:12 2019...
+run_program: Time (s): cpu = 00:00:05 ; elapsed = 00:00:15 . Memory (MB): peak = 6871.387 ; gain = 0.000 ; free physical = 386 ; free virtual = 6523
+INFO: [USF-XSim-69] 'elaborate' step finished in '14' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "Instr_tb_behav -key {Behavioral:sim_1:Functional:Instr_tb} -tclbatch {Instr_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source Instr_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+xsim: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 6954.270 ; gain = 73.879 ; free physical = 324 ; free virtual = 6475
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'Instr_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:16 ; elapsed = 00:00:25 . Memory (MB): peak = 6954.270 ; gain = 82.883 ; free physical = 324 ; free virtual = 6475
+relaunch_sim
+suspend_sim: Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 6970.316 ; gain = 0.000 ; free physical = 306 ; free virtual = 6459
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'Instr_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj Instr_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot Instr_tb_behav xil_defaultlib.Instr_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:999]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.Instr_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot Instr_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 6970.316 ; gain = 0.000 ; free physical = 293 ; free virtual = 6446
+set_property top MIPS_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim/xsim.dir/MIPS_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+webtalk_transmit: Time (s): cpu = 00:00:00.86 ; elapsed = 00:00:06 . Memory (MB): peak = 378.176 ; gain = 0.000 ; free physical = 207 ; free virtual = 6360
+INFO: [Common 17-206] Exiting Webtalk at Sat May 25 11:43:10 2019...
+run_program: Time (s): cpu = 00:00:04 ; elapsed = 00:00:09 . Memory (MB): peak = 7032.305 ; gain = 0.000 ; free physical = 261 ; free virtual = 6415
+INFO: [USF-XSim-69] 'elaborate' step finished in '9' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:09 ; elapsed = 00:00:13 . Memory (MB): peak = 7037.309 ; gain = 5.004 ; free physical = 239 ; free virtual = 6397
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 7045.324 ; gain = 0.000 ; free physical = 268 ; free virtual = 6394
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '5' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 7045.324 ; gain = 0.000 ; free physical = 265 ; free virtual = 6391
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:18 ; elapsed = 00:00:16 . Memory (MB): peak = 7045.324 ; gain = 0.000 ; free physical = 253 ; free virtual = 6382
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 7053.363 ; gain = 0.000 ; free physical = 215 ; free virtual = 6355
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 7053.363 ; gain = 0.000 ; free physical = 244 ; free virtual = 6372
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:18 ; elapsed = 00:00:15 . Memory (MB): peak = 7053.363 ; gain = 0.000 ; free physical = 192 ; free virtual = 6326
+relaunch_sim
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7071.145 ; gain = 0.000 ; free physical = 192 ; free virtual = 6329
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7071.145 ; gain = 0.000 ; free physical = 192 ; free virtual = 6329
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:17 ; elapsed = 00:00:16 . Memory (MB): peak = 7072.320 ; gain = 1.176 ; free physical = 187 ; free virtual = 6328
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 7072.371 ; gain = 0.000 ; free physical = 149 ; free virtual = 6283
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 7072.371 ; gain = 0.000 ; free physical = 165 ; free virtual = 6302
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+xsim: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 7098.336 ; gain = 25.965 ; free physical = 114 ; free virtual = 6223
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 7098.336 ; gain = 25.965 ; free physical = 114 ; free virtual = 6223
+relaunch_sim
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7162.379 ; gain = 0.000 ; free physical = 575 ; free virtual = 6490
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7162.379 ; gain = 0.000 ; free physical = 575 ; free virtual = 6490
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:25 ; elapsed = 00:00:18 . Memory (MB): peak = 7162.379 ; gain = 0.008 ; free physical = 567 ; free virtual = 6490
+relaunch_sim
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 7176.383 ; gain = 0.000 ; free physical = 592 ; free virtual = 6507
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 7176.383 ; gain = 0.000 ; free physical = 592 ; free virtual = 6507
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:25 ; elapsed = 00:00:17 . Memory (MB): peak = 7184.375 ; gain = 7.996 ; free physical = 583 ; free virtual = 6503
+relaunch_sim
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7192.418 ; gain = 0.000 ; free physical = 583 ; free virtual = 6499
+INFO: [USF-XSim-69] 'elaborate' step finished in '6' seconds
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7192.418 ; gain = 0.000 ; free physical = 583 ; free virtual = 6499
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:24 ; elapsed = 00:00:16 . Memory (MB): peak = 7200.383 ; gain = 7.965 ; free physical = 582 ; free virtual = 6499
+close_sim
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 7213.391 ; gain = 7.953 ; free physical = 531 ; free virtual = 6448
+INFO: [Common 17-344] 'close_sim' was cancelled
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 7213.391 ; gain = 0.000 ; free physical = 521 ; free virtual = 6443
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+xsim: Time (s): cpu = 00:00:13 ; elapsed = 00:00:07 . Memory (MB): peak = 7234.402 ; gain = 21.012 ; free physical = 513 ; free virtual = 6430
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:26 ; elapsed = 00:00:19 . Memory (MB): peak = 7234.402 ; gain = 21.012 ; free physical = 513 ; free virtual = 6430
+relaunch_sim
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 7242.457 ; gain = 0.000 ; free physical = 516 ; free virtual = 6437
+run all
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 7242.457 ; gain = 0.000 ; free physical = 513 ; free virtual = 6438
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 7245.418 ; gain = 0.000 ; free physical = 498 ; free virtual = 6426
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 7253.461 ; gain = 0.000 ; free physical = 505 ; free virtual = 6428
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:997]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7261.426 ; gain = 0.000 ; free physical = 475 ; free virtual = 6403
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 9f2804457eb843e5bf553cb29395623a --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline/mips-pipeline.v:1002]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.flopr(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.flopr(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.DMem
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "MIPS_tb_behav -key {Behavioral:sim_1:Functional:MIPS_tb} -tclbatch {MIPS_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source MIPS_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 7279.422 ; gain = 0.000 ; free physical = 390 ; free virtual = 6317
+launch_runs synth_1
+[Sat May 25 15:44:33 2019] Launched synth_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/synth_1/runme.log
+launch_runs impl_1
+[Sat May 25 15:56:06 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:00.44 ; elapsed = 00:00:06 . Memory (MB): peak = 7319.887 ; gain = 0.000 ; free physical = 2904 ; free virtual = 6552
+launch_runs impl_1 -to_step write_bitstream
+[Sat May 25 16:00:53 2019] Launched impl_1...
+Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2018.3
+  **** Build date : Dec  6 2018-23:53:53
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292710309A
+open_hw_target: Time (s): cpu = 00:00:10 ; elapsed = 00:00:09 . Memory (MB): peak = 8116.914 ; gain = 753.000 ; free physical = 868 ; free virtual = 5171
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292710309A
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 8163.859 ; gain = 2.000 ; free physical = 562 ; free virtual = 4888
+exit
+INFO: [Common 17-206] Exiting Vivado at Sat May 25 18:51:31 2019...

@@ -5,7 +5,80 @@
 `define IN0_ADDR 16'd272
 `define OUT0_ADDR 16'd256
 
+
+`define INSTRS parameter SPECIAL = 6'b0;parameter SLL = 6'b000000, SRL = 6'b000010, SRA = 6'b000011, SLLV = 6'b000100, SRLV = 6'b000110, SRAV = 6'b000111, JR = 6'b001000, JALR = 6'b001001, ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010, SUBU = 6'b100011, AND = 6'b100100, OR = 6'b100101, XOR = 6'b100110, NOR = 6'b100111, SLT = 6'b101010, SLTU = 6'b101011, MUL = 6'b000010;parameter BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111, ADDI = 6'b001000, ADDIU = 6'b001001, SLTI = 6'b001010, SLTIU = 6'b001011, ANDI = 6'b001100, ORI = 6'b001101, XORI = 6'b001110, LUI = 6'b001111, LB = 6'b100000, LH = 6'b100001, LW = 6'b100011, LBU = 6'b100100, LHU = 6'b100101, SB = 6'b101000, SH = 6'b101001, SW = 6'b101011;parameter J = 6'b000010, JAL = 6'b000011;
+`define REGS parameter r0 = 5'b0, v0 = 5'b00010, v1 = 5'b00011, a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111, ra = 5'b11111, t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011, s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17, sp = 5'b11101;
+    
+
+
+module Hazard_tb;
+
+    `INSTRS
+    `REGS
+    parameter HLT = {BEQ, v0, v0, 16'hffff};
+    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
+    
+    reg clk = 0;
+    reg rst = 0;
+    
+    MIPSTop t(clk, rst);
+    
+    wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
+    wire [31: 0] pc = t.PC[31:2];
+    
+    wire [31: 0] rf [0: 31];
+    wire [31: 0] dmem = t.dmem.RAM[0];
+    
+    //wire [31: 0] test = rf[v0];
+    wire [31: 0] reg_v0 = rf[v0];
+    wire [31: 0] reg_v1 = rf[v1];
+    
+    
+    generate 
+    genvar i;
+    for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
+    endgenerate
+    
+    integer j;
+    initial
+    begin
+       
+        for (j = 0; j < 100; j = j + 1) `ROM[j] = 0;
+        
+        //Forward from Writeback
+        `ROM[0] = {LUI, r0, v0, 16'hffff};//v0 = 0xffff0000
+        `ROM[1] = {ORI, v0, v0, 16'hffff};//v0 = 0xffffffff
+        `ROM[2] = {SPECIAL, v0, v0, v0, 5'b0, ADD};// v0 = 0xfffffffe
+        
+        //Forward from Memory, Stall
+        `ROM[3] = {SW, r0, v0, 16'b0};
+        `ROM[4] = {LW, r0, v1, 16'b0};//v1 = 0xfffffffe = -2
+        `ROM[5] = {BLEZ, v1, r0, 16'd3};//Not taken
+        
+        //Control Hazard
+        `ROM[9] = {BEQ, r0, r0, 16'hffff};//HLT
+        `ROM[10] = {BEQ, r0, r0, 16'd0};//NOP
+        
+        
+        rst = ~rst;
+        #1 ;
+        rst = ~rst;
+        repeat (300) #1 clk = ~ clk;
+    end
+
+
+
+
+endmodule
+
+
+
 module Instr_tb;
+    
+    `INSTRS
+    `REGS
+    parameter HLT = {BEQ, v0, v0, 16'hffff};
+    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
     
     reg clk = 0;
     reg rst = 0;
@@ -26,28 +99,6 @@ module Instr_tb;
     for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
     endgenerate
     
-    
-    //R-Type
-    parameter SPECIAL = 6'b0;
-    parameter SLL = 6'b000000, SRL = 6'b000010, SRA = 6'b000011, SLLV = 6'b000100, SRLV = 6'b000110, SRAV = 6'b000111, JR = 6'b001000, JALR = 6'b001001, ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010, SUBU = 6'b100011, AND = 6'b100100, OR = 6'b100101, XOR = 6'b100110, NOR = 6'b100111, SLT = 6'b101010, SLTU = 6'b101011, MUL = 6'b000010;
-
-    //I-Type
-    parameter BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111, ADDI = 6'b001000, ADDIU = 6'b001001, SLTI = 6'b001010, SLTIU = 6'b001011, ANDI = 6'b001100, ORI = 6'b001101, XORI = 6'b001110, LUI = 6'b001111, LB = 6'b100000, LH = 6'b100001, LW = 6'b100011, LBU = 6'b100100, LHU = 6'b100101, SB = 6'b101000, SH = 6'b101001, SW = 6'b101011;
-    
-    parameter J = 6'b000010, JAL = 6'b000011;
-    
-    // Registers 
-    parameter r0 = 5'b0;
-    parameter v0 = 5'b00010, v1 = 5'b00011;//Return values from function
-    parameter a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111;//Arguments to function
-    parameter ra = 5'b11111;//Return address register
-    parameter t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011;//Temporary data
-    parameter s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17;//Saved Registers, preserved by subprograms
-    parameter sp = 5'b11101;//Stack Pointer
-    
-    
-    parameter HLT = {BEQ, v0, v0, 16'hffff};
-    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
     
     assign test = rf[v0];
     
@@ -219,6 +270,11 @@ endmodule
 
 
 module MIPS_tb;
+    `INSTRS
+    `REGS
+    parameter HLT = {BEQ, v0, v0, 16'hffff};
+    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
+    
     reg clk = 0;
     reg rst = 0;
     MIPSTop t(clk, rst);
@@ -238,29 +294,7 @@ module MIPS_tb;
     wire [31: 0] test_out;
     wire taken = t.mips.dp.TakenD;
     wire BranchTaken = t.mips.dp.BranchTaken;
-    //R-Type
-    parameter SPECIAL = 6'b0;
-    parameter SLL = 6'b000000, SRL = 6'b000010, SRA = 6'b000011, SLLV = 6'b000100, SRLV = 6'b000110, SRAV = 6'b000111, JR = 6'b001000, JALR = 6'b001001, ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010, SUBU = 6'b100011, AND = 6'b100100, OR = 6'b100101, XOR = 6'b100110, NOR = 6'b100111, SLT = 6'b101010, SLTU = 6'b101011, MUL = 6'b000010;
-
-    //I-Type
-    parameter BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111, ADDI = 6'b001000, ADDIU = 6'b001001, SLTI = 6'b001010, SLTIU = 6'b001011, ANDI = 6'b001100, ORI = 6'b001101, XORI = 6'b001110, LUI = 6'b001111, LB = 6'b100000, LH = 6'b100001, LW = 6'b100011, LBU = 6'b100100, LHU = 6'b100101, SB = 6'b101000, SH = 6'b101001, SW = 6'b101011;
     
-    parameter J = 6'b000010, JAL = 6'b000011;
-    
-    // Registers 
-    parameter r0 = 5'b0;
-    parameter v0 = 5'b00010, v1 = 5'b00011;//Return values from function
-    parameter a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111;//Arguments to function
-    parameter ra = 5'b11111;//Return address register
-    parameter t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011;//Temporary data
-    parameter s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17;//Saved Registers, preserved by subprograms
-    parameter sp = 5'b11101;//Stack Pointer
-    
-    
-    parameter HLT = {BEQ, v0, v0, 16'hffff};
-    parameter RET = {6'b0, ra, 10'b0, 5'b0, JR};
-    
-
     assign test_in = t.dmem.RAM[`IN0_ADDR/4];
     assign test_out = t.dmem.RAM[`OUT0_ADDR/4];
     generate 
