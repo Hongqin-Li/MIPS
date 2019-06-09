@@ -2,35 +2,60 @@
 # Vivado v2018.3 (64-bit)
 # SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
-# Start of session at: Fri May 31 13:41:29 2019
-# Process ID: 27949
+# Start of session at: Sun Jun  2 22:46:23 2019
+# Process ID: 8700
 # Current directory: /home/lhq/Workspace/MIPS
 # Command line: vivado
 # Log file: /home/lhq/Workspace/MIPS/vivado.log
 # Journal file: /home/lhq/Workspace/MIPS/vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project /home/lhq/Workspace/MIPS/pipeline/lab3-pipeline/lab3-pipeline.xpr
+open_project /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.xpr
 update_compile_order -fileset sources_1
+launch_simulation
+source Hazard_tb.tcl
+relaunch_sim
 # Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
 set_property source_mgmt_mode None [current_project]
-set_property top Hazard_tb [get_filesets sim_1]
+set_property top MIPS_tb [get_filesets sim_1]
 set_property top_lib xil_defaultlib [get_filesets sim_1]
 # Re-enabling previously disabled source management mode.
 set_property source_mgmt_mode All [current_project]
 launch_simulation
-source Hazard_tb.tcl
+source MIPS_tb.tcl
+relaunch_sim
+current_sim simulation_1
+close_sim
 relaunch_sim
 relaunch_sim
+close_sim
+launch_simulation
+source MIPS_tb.tcl
+close_sim
+launch_simulation
+source MIPS_tb.tcl
+close_sim
+launch_simulation
+source MIPS_tb.tcl
 relaunch_sim
 relaunch_sim
 relaunch_sim
 relaunch_sim
 close_sim
 launch_simulation
-source Hazard_tb.tcl
+source MIPS_tb.tcl
 relaunch_sim
 relaunch_sim
 relaunch_sim
-relaunch_sim
+launch_runs synth_1
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1
+wait_on_run synth_1
 close_sim

@@ -2,7 +2,7 @@
 `ifndef CACHE
 `define CACHE
 
-`define DELAY 2
+`define DELAY 6//The delay time, i.e. number of cycle (1<<DELAY) to wait for memory
 //Only need to modify this
 `define BLOCK_OFFSET_WIDTH_NUM 4 //e, no aligned by word
 `define BLOCK_OFFSET_WIDTH `BLOCK_OFFSET_WIDTH_NUM-1: 0
@@ -71,7 +71,7 @@ module ROMTop(
 endmodule
 */
 
-module RAMTop(
+module Memory #(parameter s=2) (
     input CLK, 
     input Valid,
     input [31:0] Addr,
@@ -100,11 +100,11 @@ module RAMTop(
     assign request_from_cpu[`REQUEST_WRITE_WIDTH] = Width;//TODO
     
         
-    Cache c(CLK, 0, request_from_cpu, request_to_mem, response_from_mem, response_to_cpu);
+    Cache #(s) c(CLK, 0, request_from_cpu, request_to_mem, response_from_mem, response_to_cpu);
     RAM mem(CLK, 0, request_to_mem, response_from_mem);
 
-    parameter s = 2, e = `BLOCK_OFFSET_WIDTH_NUM;
-    parameter t = 32 - s - e;
+    //parameter s = 2, e = `BLOCK_OFFSET_WIDTH_NUM;
+    //parameter t = 32 - s - e;
     
     wire [`BLOCK_DATA_WIDTH] response_data = response_to_cpu[`RESPONSE_DATA];
     //wire offset = Addr[`BLOCK_OFFSET_WIDTH]
@@ -196,7 +196,7 @@ module RAM(
 
 endmodule
 
-module Cache(
+module Cache #(parameter s=2) (
     input CLK, RST,
     /* Request from higher level */
     input [`REQUEST_WIDTH] Request,
@@ -213,14 +213,14 @@ module Cache(
         s: Set width
         e: Block offset width 
     */
-    parameter s = 2, e = `BLOCK_OFFSET_WIDTH_NUM;
-    parameter t = 32 - s - e;
+    localparam e = `BLOCK_OFFSET_WIDTH_NUM;
+    localparam t = 32 - s - e;
 
-    parameter TAG_MSB = 31, TAG_LSB = 32 - t;
-    parameter SET_MSB = TAG_LSB - 1, SET_LSB = TAG_LSB - s;
+    localparam TAG_MSB = 31, TAG_LSB = 32 - t;
+    localparam SET_MSB = TAG_LSB - 1, SET_LSB = TAG_LSB - s;
     //parameter OFFSET_MSB = SET_LSB - 1, OFFSET_LSB = 2;//2 for word align 
 
-    parameter NUM_SETS = 1 << s;
+    localparam NUM_SETS = 1 << s;
 
     reg [`BLOCK_WIDTH] cache[NUM_SETS-1: 0][1: 0];//Two-way
     reg LRU [NUM_SETS-1: 0];//2-way pseudo-LRU
@@ -237,7 +237,7 @@ module Cache(
     
 
     reg [2: 0] state =  3'd0;
-    parameter idle = 3'd0, compareTag = 3'd1, allocate = 3'd2, writeback = 3'd3, writearound = 3'd4;
+    localparam idle = 3'd0, compareTag = 3'd1, allocate = 3'd2, writeback = 3'd3, writearound = 3'd4;
 
 
     /* Begin: Only dependent of Request */

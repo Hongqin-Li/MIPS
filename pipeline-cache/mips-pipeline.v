@@ -360,7 +360,7 @@ module MIPSTop (CLK, RST);
     wire dmemReady;
     assign mips.dp.dmem_ready = isIn0 | dmemReady;
 
-    RAMTop dmem(CLK, mips.dp.MemValid & ~isIn0, MemAddr, MemWrite, MemWriteData, MemReadData, MemSigned, MemWidth, dmemReady);
+    Memory #(4) dmem(CLK, mips.dp.MemValid & ~isIn0, MemAddr, MemWrite, MemWriteData, MemReadData, MemSigned, MemWidth, dmemReady);
 
 endmodule
 
@@ -389,7 +389,7 @@ module IMem (
         //ROM[2] = {SB, r0, t0, `IN0_ADDR};
             
         //Read seed from IO device
-        ROM[3] = {LBU, r0, s0, `IN0_ADDR};
+        ROM[3] = {LBU, r0, s0, `IN0_ADDR};//IO device address, don't need to access memory or cache
             
         //loop:
         ROM[10] = {ORI, s0, a1, 16'd0};// retrieve seed
@@ -417,7 +417,7 @@ module IMem (
             
         //Testing JARL
         ROM[56] = {ORI, r0, t2, 14'd80, 2'd0};
-        ROM[57] = {6'b0, t2, r0, ra, 5'b0, JALR};
+        ROM[57] = {6'b0, t2, r0, ra, 5'b0, JALR};//call mod()
         //ROM[56] = {JAL, 26'd80};//call mod()
             
         //Pop
@@ -1009,7 +1009,7 @@ module Datapath(
     
     flopenr #(32) r1M(CLK, RST, ~StallM, MemWriteDataE, MemWriteDataM);
     flopenr #(32) r2M(CLK, RST, ~StallM, ALUOutE, ALUOutM);
-    flopenr #(32) r3M(CLK, RST, ~StallM, WriteRegE, WriteRegM);
+    flopenr #(5) r3M(CLK, RST, ~StallM, WriteRegE, WriteRegM);
     flopenr #(32) r4M(CLK, RST, ~StallM, PCPlus4E, PCPlus4M);
     assign MemAddrM = ALUOutM;
     

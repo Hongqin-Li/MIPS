@@ -344,8 +344,6 @@ module MIPS_tb;
     MIPSTop t(clk, rst);
     assign t.in0_data = 0;
    
-    
-    
     wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
     wire [31: 0] pc = t.PC[31:2];
     wire [31: 0] pc_target = t.mips.dp.PCTarget[31:2];
@@ -354,6 +352,8 @@ module MIPS_tb;
     
     wire [2:0] state = t.dmem.c.state;
     wire hit = t.dmem.c.hit;
+    wire [5:0] req_set = t.dmem.c.requestSet;
+    wire [31:0] req_tag = t.dmem.c.requestTag;
     //wire [31: 0] writeData = t.dmem.WriteData;
     //wire [31: 0] writeAddr = t.dmem.Addr;
     
@@ -361,6 +361,7 @@ module MIPS_tb;
     
     wire [31: 0] test_in;
     wire [31: 0] test_out;
+    wire [31: 0] req_addr = t.dmem.c.requestAddr;
     wire taken = t.mips.dp.TakenD;
     wire BranchTaken = t.mips.dp.BranchTaken;
     

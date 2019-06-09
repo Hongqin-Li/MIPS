@@ -2,8 +2,8 @@
 # Vivado v2018.3 (64-bit)
 # SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
-# Start of session at: Sun Jun  9 11:21:13 2019
-# Process ID: 21643
+# Start of session at: Mon Jun  3 16:15:23 2019
+# Process ID: 9850
 # Current directory: /home/lhq/Workspace/MIPS
 # Command line: vivado
 # Log file: /home/lhq/Workspace/MIPS/vivado.log
@@ -16,8 +16,192 @@ Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/lhq/Workspace/Xilinx/Vivado/2018.3/data/ip'.
-open_project: Time (s): cpu = 00:00:20 ; elapsed = 00:00:15 . Memory (MB): peak = 6356.102 ; gain = 85.801 ; free physical = 1146 ; free virtual = 8587
+open_project: Time (s): cpu = 00:00:51 ; elapsed = 00:00:21 . Memory (MB): peak = 6343.035 ; gain = 102.262 ; free physical = 2115 ; free virtual = 7179
+open_hw
+open_hw: Time (s): cpu = 00:00:23 ; elapsed = 00:00:05 . Memory (MB): peak = 6423.699 ; gain = 58.883 ; free physical = 2068 ; free virtual = 7177
 update_compile_order -fileset sources_1
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292710309A
+open_hw_target: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 7178.770 ; gain = 755.000 ; free physical = 2297 ; free virtual = 7729
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_hw
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'top' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj top_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAMTop
+INFO: [VRFC 10-311] analyzing module RAM
+INFO: [VRFC 10-311] analyzing module Cache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 7344.348 ; gain = 0.000 ; free physical = 1443 ; free virtual = 7731
+INFO: [USF-XSim-69] 'compile' step finished in '6' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v:1012]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module RAMTop_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.clkdiv
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.flopenrc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.Cache_default
+Compiling module xil_defaultlib.RAM
+Compiling module xil_defaultlib.RAMTop_default
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.Display
+Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot top_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xsim.dir/top_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xsim.dir/top_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Mon Jun  3 16:50:14 2019. For additional details about this file, please refer to the WebTalk help file at /home/lhq/Workspace/Xilinx/Vivado/2018.3/doc/webtalk_introduction.html.
+webtalk_transmit: Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 378.176 ; gain = 0.000 ; free physical = 1302 ; free virtual = 7661
+INFO: [Common 17-206] Exiting Webtalk at Mon Jun  3 16:50:14 2019...
+run_program: Time (s): cpu = 00:00:19 ; elapsed = 00:00:24 . Memory (MB): peak = 7344.348 ; gain = 0.000 ; free physical = 1364 ; free virtual = 7722
+INFO: [USF-XSim-69] 'elaborate' step finished in '23' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "top_behav -key {Behavioral:sim_1:Functional:top} -tclbatch {top.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source top.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+add_wave: Time (s): cpu = 00:00:15 ; elapsed = 00:00:06 . Memory (MB): peak = 7407.430 ; gain = 10.004 ; free physical = 1296 ; free virtual = 7661
+# run 1000ns
+xsim: Time (s): cpu = 00:00:31 ; elapsed = 00:00:14 . Memory (MB): peak = 7409.430 ; gain = 59.840 ; free physical = 1291 ; free virtual = 7660
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'top_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:01:01 ; elapsed = 00:00:47 . Memory (MB): peak = 7409.430 ; gain = 65.082 ; free physical = 1291 ; free virtual = 7660
+set_property top MIPS_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim: Time (s): cpu = 00:00:21 ; elapsed = 00:00:15 . Memory (MB): peak = 7422.438 ; gain = 5.004 ; free physical = 1279 ; free virtual = 7654
+update_compile_order -fileset sim_1
+launch_simulation -mode post-implementation -type timing
+INFO: [Vivado 12-5682] Launching post-implementation timing simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/impl/timing/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Netlist 29-17] Analyzing 7012 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.3
+open_run: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 7466.590 ; gain = 44.152 ; free physical = 1202 ; free virtual = 7577
+INFO: [Common 17-344] 'open_run' was cancelled
+INFO: [Vivado 12-5357] 'setup' step aborted
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 7466.590 ; gain = 44.152 ; free physical = 1202 ; free virtual = 7577
+INFO: [Common 17-344] 'launch_simulation' was cancelled
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAMCache_tb
+ERROR: [VRFC 10-3805] use of undefined macro 'BLOCK_TAG' [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:27]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:27]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:28]
+ERROR: [VRFC 10-3805] use of undefined macro 'RESPONSE_READY' [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:29]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:29]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:30]
+ERROR: [VRFC 10-3805] use of undefined macro 'BLOCK_DATA_WIDTH' [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:37]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:37]
+ERROR: [VRFC 10-3805] use of undefined macro 'RESPONSE_DATA' [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:38]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:38]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:38]
+ERROR: [VRFC 10-1412] syntax error near ] [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:39]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:39]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:41]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:42]
+ERROR: [VRFC 10-585] dynamic range is not allowed in net declaration [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:43]
+ERROR: [VRFC 10-1201] packed dimension must specify a range [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:37]
+ERROR: [VRFC 10-1201] packed dimension must specify a range [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:38]
+ERROR: [VRFC 10-1201] packed dimension must specify a range [/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v:39]
+INFO: [#UNDEF] Sorry, too many errors..
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
 launch_simulation
 INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
 INFO: [SIM-utils-51] Simulation object is 'sim_1'
@@ -28,7 +212,7 @@ INFO: [USF-XSim-2] XSim::Compile design
 INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
 xvlog --incr --relax -prj MIPS_tb_vlog.prj
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module Memory
+INFO: [VRFC 10-311] analyzing module RAMTop
 INFO: [VRFC 10-311] analyzing module RAM
 INFO: [VRFC 10-311] analyzing module Cache
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
@@ -55,7 +239,7 @@ INFO: [VRFC 10-311] analyzing module RAMCache_tb
 INFO: [VRFC 10-311] analyzing module Hazard_tb
 INFO: [VRFC 10-311] analyzing module Instr_tb
 INFO: [VRFC 10-311] analyzing module MIPS_tb
-INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
 INFO: [USF-XSim-3] XSim::Elaborate design
 INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
 Vivado Simulator 2018.3
@@ -63,11 +247,12 @@ Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
 Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v:1012]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
 WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
 Completed static elaboration
 Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module Memory(s=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module RAMTop_default doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache_default doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
@@ -81,7 +266,6 @@ Compiling module xil_defaultlib.Controller
 Compiling module xil_defaultlib.RegisterFile
 Compiling module xil_defaultlib.flopenrc(WIDTH=5)
 Compiling module xil_defaultlib.ALU
-Compiling module xil_defaultlib.flopenr(WIDTH=5)
 Compiling module xil_defaultlib.floprc(WIDTH=5)
 Compiling module xil_defaultlib.Hazard
 Compiling module xil_defaultlib.Datapath
@@ -89,7 +273,7 @@ Compiling module xil_defaultlib.MIPS
 Compiling module xil_defaultlib.IMem_default
 Compiling module xil_defaultlib.Cache_default
 Compiling module xil_defaultlib.RAM
-Compiling module xil_defaultlib.Memory(s=4)
+Compiling module xil_defaultlib.RAMTop_default
 Compiling module xil_defaultlib.MIPSTop
 Compiling module xil_defaultlib.MIPS_tb
 Compiling module xil_defaultlib.glbl
@@ -101,10 +285,11 @@ Built simulation snapshot MIPS_tb_behav
     ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 
 source /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xsim.dir/MIPS_tb_behav/webtalk/xsim_webtalk.tcl -notrace
-INFO: [Common 17-186] '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xsim.dir/MIPS_tb_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Sun Jun  9 12:19:50 2019. For additional details about this file, please refer to the WebTalk help file at /home/lhq/Workspace/Xilinx/Vivado/2018.3/doc/webtalk_introduction.html.
-INFO: [Common 17-206] Exiting Webtalk at Sun Jun  9 12:19:50 2019...
-run_program: Time (s): cpu = 00:00:06 ; elapsed = 00:00:14 . Memory (MB): peak = 6466.230 ; gain = 0.000 ; free physical = 1118 ; free virtual = 8696
-INFO: [USF-XSim-69] 'elaborate' step finished in '14' seconds
+INFO: [Common 17-186] '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim/xsim.dir/MIPS_tb_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Mon Jun  3 16:52:08 2019. For additional details about this file, please refer to the WebTalk help file at /home/lhq/Workspace/Xilinx/Vivado/2018.3/doc/webtalk_introduction.html.
+webtalk_transmit: Time (s): cpu = 00:00:00.97 ; elapsed = 00:00:05 . Memory (MB): peak = 378.176 ; gain = 0.000 ; free physical = 1072 ; free virtual = 7450
+INFO: [Common 17-206] Exiting Webtalk at Mon Jun  3 16:52:08 2019...
+run_program: Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 7466.641 ; gain = 0.000 ; free physical = 1132 ; free virtual = 7510
+INFO: [USF-XSim-69] 'elaborate' step finished in '8' seconds
 INFO: [USF-XSim-4] XSim::Simulate design
 INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
 INFO: [USF-XSim-98] *** Running xsim
@@ -123,17 +308,93 @@ source MIPS_tb.tcl
 #   }
 # }
 # run 1000ns
-xsim: Time (s): cpu = 00:00:12 ; elapsed = 00:00:06 . Memory (MB): peak = 6551.906 ; gain = 76.660 ; free physical = 1033 ; free virtual = 8636
 INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
 INFO: [USF-XSim-97] XSim simulation ran for 1000ns
-launch_simulation: Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 6551.906 ; gain = 87.625 ; free physical = 1033 ; free virtual = 8636
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 7529.246 ; gain = 62.605 ; free physical = 1157 ; free virtual = 7536
 relaunch_sim
-INFO: [Common 17-41] Interrupt caught. Command should exit soon.
-suspend_sim: Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 6569.375 ; gain = 0.000 ; free physical = 1065 ; free virtual = 8665
-INFO: [Common 17-344] 'suspend_sim' was cancelled
-INFO: [Common 17-17] undo 'relaunch_sim'
-INFO: [Common 17-17] undo 'relaunch_sim'
-INFO: [Common 17-344] 'relaunch_sim' was cancelled
+suspend_sim: Time (s): cpu = 00:00:21 ; elapsed = 00:00:15 . Memory (MB): peak = 7563.312 ; gain = 0.000 ; free physical = 1218 ; free virtual = 7595
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj MIPS_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAMTop
+INFO: [VRFC 10-311] analyzing module RAM
+INFO: [VRFC 10-311] analyzing module Cache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module Display
+INFO: [VRFC 10-311] analyzing module clkdiv
+INFO: [VRFC 10-311] analyzing module MIPSTop
+INFO: [VRFC 10-311] analyzing module IMem
+INFO: [VRFC 10-311] analyzing module DMem
+INFO: [VRFC 10-311] analyzing module MIPS
+INFO: [VRFC 10-311] analyzing module ALUDecoder
+INFO: [VRFC 10-311] analyzing module ControlUnit
+INFO: [VRFC 10-311] analyzing module RegisterFile
+INFO: [VRFC 10-311] analyzing module Controller
+INFO: [VRFC 10-311] analyzing module Datapath
+INFO: [VRFC 10-311] analyzing module Hazard
+INFO: [VRFC 10-311] analyzing module flopr
+INFO: [VRFC 10-311] analyzing module floprc
+INFO: [VRFC 10-311] analyzing module flopenr
+INFO: [VRFC 10-311] analyzing module flopenrc
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAMCache_tb
+INFO: [VRFC 10-311] analyzing module Hazard_tb
+INFO: [VRFC 10-311] analyzing module Instr_tb
+INFO: [VRFC 10-311] analyzing module MIPS_tb
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 5 differs from formal bit length 32 for port 'd' [/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v:1012]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module RAMTop(s=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.ALUDecoder
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.flopenrc(WIDTH=32)
+Compiling module xil_defaultlib.flopenr(WIDTH=32)
+Compiling module xil_defaultlib.floprc(WIDTH=32)
+Compiling module xil_defaultlib.Controller
+Compiling module xil_defaultlib.RegisterFile
+Compiling module xil_defaultlib.flopenrc(WIDTH=5)
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.floprc(WIDTH=5)
+Compiling module xil_defaultlib.Hazard
+Compiling module xil_defaultlib.Datapath
+Compiling module xil_defaultlib.MIPS
+Compiling module xil_defaultlib.IMem_default
+Compiling module xil_defaultlib.Cache_default
+Compiling module xil_defaultlib.RAM
+Compiling module xil_defaultlib.RAMTop(s=4)
+Compiling module xil_defaultlib.MIPSTop
+Compiling module xil_defaultlib.MIPS_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot MIPS_tb_behav
+run_program: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 7563.312 ; gain = 0.000 ; free physical = 1219 ; free virtual = 7594
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 7563.312 ; gain = 0.000 ; free physical = 1219 ; free virtual = 7594
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+relaunch_sim: Time (s): cpu = 00:00:33 ; elapsed = 00:00:28 . Memory (MB): peak = 7563.312 ; gain = 0.000 ; free physical = 1218 ; free virtual = 7596
 close_sim
 INFO: [Simtcl 6-16] Simulation closed
 launch_simulation
@@ -233,257 +494,4 @@ source MIPS_tb.tcl
 # run 1000ns
 INFO: [USF-XSim-96] XSim completed. Design snapshot 'MIPS_tb_behav' loaded.
 INFO: [USF-XSim-97] XSim simulation ran for 1000ns
-launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 6569.375 ; gain = 0.000 ; free physical = 1054 ; free virtual = 8653
-relaunch_sim
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [SIM-utils-51] Simulation object is 'sim_1'
-INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
-INFO: [USF-XSim-97] Finding global include files...
-INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
-INFO: [USF-XSim-2] XSim::Compile design
-INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-xvlog --incr --relax -prj MIPS_tb_vlog.prj
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module Memory
-INFO: [VRFC 10-311] analyzing module RAM
-INFO: [VRFC 10-311] analyzing module Cache
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module top
-INFO: [VRFC 10-311] analyzing module Display
-INFO: [VRFC 10-311] analyzing module clkdiv
-INFO: [VRFC 10-311] analyzing module MIPSTop
-INFO: [VRFC 10-311] analyzing module IMem
-INFO: [VRFC 10-311] analyzing module DMem
-INFO: [VRFC 10-311] analyzing module MIPS
-INFO: [VRFC 10-311] analyzing module ALUDecoder
-INFO: [VRFC 10-311] analyzing module ControlUnit
-INFO: [VRFC 10-311] analyzing module RegisterFile
-INFO: [VRFC 10-311] analyzing module Controller
-INFO: [VRFC 10-311] analyzing module Datapath
-INFO: [VRFC 10-311] analyzing module Hazard
-INFO: [VRFC 10-311] analyzing module flopr
-INFO: [VRFC 10-311] analyzing module floprc
-INFO: [VRFC 10-311] analyzing module flopenr
-INFO: [VRFC 10-311] analyzing module flopenrc
-INFO: [VRFC 10-311] analyzing module ALU
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module RAMCache_tb
-INFO: [VRFC 10-311] analyzing module Hazard_tb
-INFO: [VRFC 10-311] analyzing module Instr_tb
-INFO: [VRFC 10-311] analyzing module MIPS_tb
-INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [USF-XSim-3] XSim::Elaborate design
-INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-Vivado Simulator 2018.3
-Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
-Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
-Using 8 slave threads.
-Starting static elaboration
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
-Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module Memory(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.ALUDecoder
-Compiling module xil_defaultlib.ControlUnit
-Compiling module xil_defaultlib.flopenrc(WIDTH=32)
-Compiling module xil_defaultlib.flopenr(WIDTH=32)
-Compiling module xil_defaultlib.floprc(WIDTH=32)
-Compiling module xil_defaultlib.Controller
-Compiling module xil_defaultlib.RegisterFile
-Compiling module xil_defaultlib.flopenrc(WIDTH=5)
-Compiling module xil_defaultlib.ALU
-Compiling module xil_defaultlib.flopenr(WIDTH=5)
-Compiling module xil_defaultlib.floprc(WIDTH=5)
-Compiling module xil_defaultlib.Hazard
-Compiling module xil_defaultlib.Datapath
-Compiling module xil_defaultlib.MIPS
-Compiling module xil_defaultlib.IMem_default
-Compiling module xil_defaultlib.Cache(s=4)
-Compiling module xil_defaultlib.RAM
-Compiling module xil_defaultlib.Memory(s=4)
-Compiling module xil_defaultlib.MIPSTop
-Compiling module xil_defaultlib.MIPS_tb
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot MIPS_tb_behav
-INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
-Vivado Simulator 2018.3
-Time resolution is 1 ps
-relaunch_sim: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 6591.367 ; gain = 4.988 ; free physical = 977 ; free virtual = 8592
-relaunch_sim
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [SIM-utils-51] Simulation object is 'sim_1'
-INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
-INFO: [USF-XSim-97] Finding global include files...
-INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
-INFO: [USF-XSim-2] XSim::Compile design
-INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-xvlog --incr --relax -prj MIPS_tb_vlog.prj
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module Memory
-INFO: [VRFC 10-311] analyzing module RAM
-INFO: [VRFC 10-311] analyzing module Cache
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module top
-INFO: [VRFC 10-311] analyzing module Display
-INFO: [VRFC 10-311] analyzing module clkdiv
-INFO: [VRFC 10-311] analyzing module MIPSTop
-INFO: [VRFC 10-311] analyzing module IMem
-INFO: [VRFC 10-311] analyzing module DMem
-INFO: [VRFC 10-311] analyzing module MIPS
-INFO: [VRFC 10-311] analyzing module ALUDecoder
-INFO: [VRFC 10-311] analyzing module ControlUnit
-INFO: [VRFC 10-311] analyzing module RegisterFile
-INFO: [VRFC 10-311] analyzing module Controller
-INFO: [VRFC 10-311] analyzing module Datapath
-INFO: [VRFC 10-311] analyzing module Hazard
-INFO: [VRFC 10-311] analyzing module flopr
-INFO: [VRFC 10-311] analyzing module floprc
-INFO: [VRFC 10-311] analyzing module flopenr
-INFO: [VRFC 10-311] analyzing module flopenrc
-INFO: [VRFC 10-311] analyzing module ALU
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module RAMCache_tb
-INFO: [VRFC 10-311] analyzing module Hazard_tb
-INFO: [VRFC 10-311] analyzing module Instr_tb
-INFO: [VRFC 10-311] analyzing module MIPS_tb
-INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [USF-XSim-3] XSim::Elaborate design
-INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-Vivado Simulator 2018.3
-Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
-Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
-Using 8 slave threads.
-Starting static elaboration
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
-Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module Memory(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.ALUDecoder
-Compiling module xil_defaultlib.ControlUnit
-Compiling module xil_defaultlib.flopenrc(WIDTH=32)
-Compiling module xil_defaultlib.flopenr(WIDTH=32)
-Compiling module xil_defaultlib.floprc(WIDTH=32)
-Compiling module xil_defaultlib.Controller
-Compiling module xil_defaultlib.RegisterFile
-Compiling module xil_defaultlib.flopenrc(WIDTH=5)
-Compiling module xil_defaultlib.ALU
-Compiling module xil_defaultlib.flopenr(WIDTH=5)
-Compiling module xil_defaultlib.floprc(WIDTH=5)
-Compiling module xil_defaultlib.Hazard
-Compiling module xil_defaultlib.Datapath
-Compiling module xil_defaultlib.MIPS
-Compiling module xil_defaultlib.IMem_default
-Compiling module xil_defaultlib.Cache(s=4)
-Compiling module xil_defaultlib.RAM
-Compiling module xil_defaultlib.Memory(s=4)
-Compiling module xil_defaultlib.MIPSTop
-Compiling module xil_defaultlib.MIPS_tb
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot MIPS_tb_behav
-INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
-Vivado Simulator 2018.3
-Time resolution is 1 ps
-relaunch_sim: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 6607.375 ; gain = 8.000 ; free physical = 990 ; free virtual = 8599
-relaunch_sim
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [SIM-utils-51] Simulation object is 'sim_1'
-INFO: [SIM-utils-54] Inspecting design source files for 'MIPS_tb' in fileset 'sim_1'...
-INFO: [USF-XSim-97] Finding global include files...
-INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
-INFO: [USF-XSim-2] XSim::Compile design
-INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-xvlog --incr --relax -prj MIPS_tb_vlog.prj
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module Memory
-INFO: [VRFC 10-311] analyzing module RAM
-INFO: [VRFC 10-311] analyzing module Cache
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/mips-pipeline.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module top
-INFO: [VRFC 10-311] analyzing module Display
-INFO: [VRFC 10-311] analyzing module clkdiv
-INFO: [VRFC 10-311] analyzing module MIPSTop
-INFO: [VRFC 10-311] analyzing module IMem
-INFO: [VRFC 10-311] analyzing module DMem
-INFO: [VRFC 10-311] analyzing module MIPS
-INFO: [VRFC 10-311] analyzing module ALUDecoder
-INFO: [VRFC 10-311] analyzing module ControlUnit
-INFO: [VRFC 10-311] analyzing module RegisterFile
-INFO: [VRFC 10-311] analyzing module Controller
-INFO: [VRFC 10-311] analyzing module Datapath
-INFO: [VRFC 10-311] analyzing module Hazard
-INFO: [VRFC 10-311] analyzing module flopr
-INFO: [VRFC 10-311] analyzing module floprc
-INFO: [VRFC 10-311] analyzing module flopenr
-INFO: [VRFC 10-311] analyzing module flopenrc
-INFO: [VRFC 10-311] analyzing module ALU
-INFO: [VRFC 10-2263] Analyzing Verilog file "/home/lhq/Workspace/MIPS/pipeline-cache/testbench.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module RAMCache_tb
-INFO: [VRFC 10-311] analyzing module Hazard_tb
-INFO: [VRFC 10-311] analyzing module Instr_tb
-INFO: [VRFC 10-311] analyzing module MIPS_tb
-INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
-INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-INFO: [USF-XSim-3] XSim::Elaborate design
-INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.sim/sim_1/behav/xsim'
-Vivado Simulator 2018.3
-Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
-Running: /home/lhq/Workspace/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto adf6295e29a7467294dba3dda1bb032e --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot MIPS_tb_behav xil_defaultlib.MIPS_tb xil_defaultlib.glbl -log elaborate.log 
-Using 8 slave threads.
-Starting static elaboration
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:103]
-WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'RST' [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:104]
-WARNING: [VRFC 10-3705] select index 6 into 'cnt' is out of bounds [/home/lhq/Workspace/MIPS/pipeline-cache/cache.v:173]
-Completed static elaboration
-Starting simulation data flow analysis
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 74. Module Memory(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 199. Module Cache(s=4) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "/home/lhq/Workspace/MIPS/pipeline-cache/cache.v" Line 129. Module RAM doesn't have a timescale but at least one module in design has a timescale.
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.ALUDecoder
-Compiling module xil_defaultlib.ControlUnit
-Compiling module xil_defaultlib.flopenrc(WIDTH=32)
-Compiling module xil_defaultlib.flopenr(WIDTH=32)
-Compiling module xil_defaultlib.floprc(WIDTH=32)
-Compiling module xil_defaultlib.Controller
-Compiling module xil_defaultlib.RegisterFile
-Compiling module xil_defaultlib.flopenrc(WIDTH=5)
-Compiling module xil_defaultlib.ALU
-Compiling module xil_defaultlib.flopenr(WIDTH=5)
-Compiling module xil_defaultlib.floprc(WIDTH=5)
-Compiling module xil_defaultlib.Hazard
-Compiling module xil_defaultlib.Datapath
-Compiling module xil_defaultlib.MIPS
-Compiling module xil_defaultlib.IMem_default
-Compiling module xil_defaultlib.Cache(s=4)
-Compiling module xil_defaultlib.RAM
-Compiling module xil_defaultlib.Memory(s=4)
-Compiling module xil_defaultlib.MIPSTop
-Compiling module xil_defaultlib.MIPS_tb
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot MIPS_tb_behav
-INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
-Vivado Simulator 2018.3
-Time resolution is 1 ps
-relaunch_sim: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 6655.398 ; gain = 2.949 ; free physical = 986 ; free virtual = 8594
-reset_run synth_1
-launch_runs impl_1
-[Sun Jun  9 12:52:16 2019] Launched synth_1...
-Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.runs/synth_1/runme.log
-[Sun Jun  9 12:52:16 2019] Launched impl_1...
-Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.runs/impl_1/runme.log
-launch_runs impl_1 -to_step write_bitstream
-[Sun Jun  9 13:16:31 2019] Launched impl_1...
-Run output will be captured here: /home/lhq/Workspace/MIPS/pipeline-cache/lab4-pipeline-cache/lab4-pipeline-cache.runs/impl_1/runme.log
+launch_simulation: Time (s): cpu = 00:00:10 ; elapsed = 00:00:08 . Memory (MB): peak = 7624.305 ; gain = 0.000 ; free physical = 1178 ; free virtual = 7561
