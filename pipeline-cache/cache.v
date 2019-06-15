@@ -2,7 +2,7 @@
 `ifndef CACHE
 `define CACHE
 
-`define DELAY 6//The delay time, i.e. number of cycle (1<<DELAY) to wait for memory
+`define DELAY 4//The delay time, i.e. number of cycle (1<<DELAY) to wait for memory
 //Only need to modify this
 `define BLOCK_OFFSET_WIDTH_NUM 4 //e, no aligned by word
 `define BLOCK_OFFSET_WIDTH `BLOCK_OFFSET_WIDTH_NUM-1: 0
@@ -24,7 +24,7 @@
     `define REQUEST_READ 1'b0
     `define REQUEST_WRITE 1'b1
     
-//TODO: only used in write, should be identical to CTL_MEMWIDTH define !!
+//only used in write, should be identical to CTL_MEMWIDTH define !!
 `define REQUEST_WRITE_WIDTH 35:34
 `define REQUEST_WRITE_WORD 2'd0
 `define REQUEST_WRITE_HALF 2'd1
@@ -75,21 +75,22 @@ module Memory #(parameter s=2) (
     input CLK, 
     input Valid,
     input [31:0] Addr,
-    //TODO
     input WriteEN,
     input [31:0] WriteData,
     output[31:0] Data,
     input Signed,
     input [1:0] Width,
-    output Ready
+    output reg Ready
     );
     
 
     wire [`REQUEST_WIDTH] request_from_cpu;
+    reg [`REQUEST_WIDTH] previous_request_from_cpu = 0;
     wire [`RESPONSE_WIDTH] response_to_cpu;
     wire [`REQUEST_WIDTH] request_to_mem;
     wire [`RESPONSE_WIDTH] response_from_mem;
    
+    //wire busy;
     /* Create a new Request */
     reg [`BLOCK_DATA_WIDTH] writeData;
     
@@ -97,31 +98,69 @@ module Memory #(parameter s=2) (
     assign request_from_cpu[`REQUEST_ADDR] = Addr;
     assign request_from_cpu[`REQUEST_DATA] = writeData;
     assign request_from_cpu[`REQUEST_TYPE] = WriteEN ? `REQUEST_WRITE :`REQUEST_READ;
-    assign request_from_cpu[`REQUEST_WRITE_WIDTH] = Width;//TODO
+    assign request_from_cpu[`REQUEST_WRITE_WIDTH] = Width;
     
-        
-    Cache #(s) c(CLK, 0, request_from_cpu, request_to_mem, response_from_mem, response_to_cpu);
+    
+    Cache #(s) c(CLK, 0, previous_request_from_cpu, request_to_mem, response_from_mem, response_to_cpu);
     RAM mem(CLK, 0, request_to_mem, response_from_mem);
 
-    //parameter s = 2, e = `BLOCK_OFFSET_WIDTH_NUM;
-    //parameter t = 32 - s - e;
     
     wire [`BLOCK_DATA_WIDTH] response_data = response_to_cpu[`RESPONSE_DATA];
-    //wire offset = Addr[`BLOCK_OFFSET_WIDTH]
+
+
     wire [`BLOCK_OFFSET_WIDTH_NUM+2: 0] offset = {Addr[`BLOCK_OFFSET_WIDTH], 3'b0};
     wire [31:0] rawData = response_data[offset +: 32];
     assign Data = Width == `REQUEST_WRITE_BYTE ? { {24{Signed & rawData[7]}}, rawData[7:0]}
                 : Width == `REQUEST_WRITE_HALF ? { {16{Signed & rawData[7]}}, rawData[15:0]}
                 : rawData;
     
-    
-    assign Ready = response_to_cpu[`RESPONSE_READY];
+    wire cache_ready;
+    assign cache_ready = response_to_cpu[`RESPONSE_READY];
+
     always @ (*) begin
         writeData = 0;
         writeData[offset +: 32] = WriteData;
     end
     
-    
+    wire same_request = previous_request_from_cpu == request_from_cpu;
+    wire should_execute = Valid & ~same_request;
+
+    reg [1:0] state = 0;
+
+    localparam idle = 2'd0, busy = 2'd1;
+
+    always @ (negedge CLK)
+        if (state == idle)
+            
+            if (should_execute) begin 
+                
+                state <= busy;
+                previous_request_from_cpu <=  request_from_cpu;
+                
+                if (WriteEN) Ready <= 1;//To CPU, it seems like Memory have written.
+                else Ready <= 0;
+                //Actually, Read Memory can also be Ready immediately as long as we can handle the hazard well.
+                //This is something like out-of-order CPU since then we cannot write back (e.g. LW) at once.
+                //But for simplicity, I won't implement this.
+            
+            end
+            else 
+                Ready <= 1;
+            
+        //busy: Memory is excuting previous writing task
+        else begin
+            //When a new instruction need to use Memory but Memory haven't finished its previous (writing) task
+            if (should_execute) begin 
+                Ready <= 0;//THis should stall the cpu pipeline
+                if (cache_ready) 
+                    state <= idle;
+            end
+            else if (cache_ready) begin
+                state <= idle;
+                Ready <= 1;
+            end
+        end
+        
 endmodule
 
 
@@ -132,7 +171,7 @@ module RAM(
     output reg [`RESPONSE_WIDTH] Response);
 
     reg [`BLOCK_DATA_WIDTH] RAM[256:0];
-    reg [4:0] cnt = 0;
+    reg [31:0] cnt = 0;
     
     wire [31: 0] addr = Request[`REQUEST_ADDR];
     wire [`BLOCK_DATA_WIDTH] requestData = Request[`REQUEST_DATA];
@@ -144,6 +183,9 @@ module RAM(
     wire [`BLOCK_OFFSET_WIDTH_NUM+2: 0] offset = {addr[`BLOCK_OFFSET_WIDTH], 3'b0};
     reg [`BLOCK_DATA_WIDTH] dataMask, nmask;
     wire [`BLOCK_DATA_WIDTH] mask = ~nmask;
+    
+    //wire delay = `DELAY;
+    
     
     always @(*) begin
     
@@ -168,7 +210,7 @@ module RAM(
    
    
    
-    always @ (posedge CLK)
+    always @ (negedge CLK)
         if (Request[`REQUEST_VALID]) begin
             if (cnt[`DELAY]) begin
                 cnt <= 0;
@@ -211,10 +253,10 @@ module Cache #(parameter s=2) (
     /* 
         t: Tag width
         s: Set width
-        e: Block offset width 
+        b: Block offset width 
     */
-    localparam e = `BLOCK_OFFSET_WIDTH_NUM;
-    localparam t = 32 - s - e;
+    localparam b = `BLOCK_OFFSET_WIDTH_NUM;
+    localparam t = 32 - s - b;
 
     localparam TAG_MSB = 31, TAG_LSB = 32 - t;
     localparam SET_MSB = TAG_LSB - 1, SET_LSB = TAG_LSB - s;
@@ -239,7 +281,8 @@ module Cache #(parameter s=2) (
     reg [2: 0] state =  3'd0;
     localparam idle = 3'd0, compareTag = 3'd1, allocate = 3'd2, writeback = 3'd3, writearound = 3'd4;
 
-
+    wire busy = state != idle;
+    
     /* Begin: Only dependent of Request */
     wire [`BLOCK_DATA_WIDTH] requestData = Request[`REQUEST_DATA];
     wire [31: 0] requestAddr = Request[`REQUEST_ADDR];
@@ -300,7 +343,7 @@ module Cache #(parameter s=2) (
 
     reg [`REQUEST_WIDTH] previousRequest = 0;
     //negedge
-    always @ (negedge CLK) begin
+    always @ (posedge CLK) begin
 
         case (state) 
 
@@ -331,7 +374,6 @@ module Cache #(parameter s=2) (
                     if (Request[`REQUEST_TYPE] == `REQUEST_WRITE) begin
 
                         cache[requestSet][targetBlockIndex][`BLOCK_DIRTY] <= 1;
-                        //FIXME variant width
                         cache[requestSet][targetBlockIndex][`BLOCK_DATA] <= (Request[`REQUEST_DATA] & mask) | writeMask;
 
                     end

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `define ROM t.imem.ROM
 
-//`include "mips-pipeline.v"
+`include "mips-pipeline.v"
 
 `define INSTRS parameter SPECIAL = 6'b0;parameter SLL = 6'b000000, SRL = 6'b000010, SRA = 6'b000011, SLLV = 6'b000100, SRLV = 6'b000110, SRAV = 6'b000111, JR = 6'b001000, JALR = 6'b001001, ADD = 6'b100000, ADDU = 6'b100001, SUB = 6'b100010, SUBU = 6'b100011, AND = 6'b100100, OR = 6'b100101, XOR = 6'b100110, NOR = 6'b100111, SLT = 6'b101010, SLTU = 6'b101011, MUL = 6'b000010;parameter BEQ = 6'b000100, BNE = 6'b000101, BLEZ = 6'b000110, BGTZ = 6'b000111, ADDI = 6'b001000, ADDIU = 6'b001001, SLTI = 6'b001010, SLTIU = 6'b001011, ANDI = 6'b001100, ORI = 6'b001101, XORI = 6'b001110, LUI = 6'b001111, LB = 6'b100000, LH = 6'b100001, LW = 6'b100011, LBU = 6'b100100, LHU = 6'b100101, SB = 6'b101000, SH = 6'b101001, SW = 6'b101011;parameter J = 6'b000010, JAL = 6'b000011;
 `define REGS parameter r0 = 5'b0, v0 = 5'b00010, v1 = 5'b00011, a0 = 5'b00100, a1 = 5'b00101, a2 = 5'b00110, a3 = 5'b00111, ra = 5'b11111, t0 = 5'b01000, t1 = 5'b01001, t2 = 5'b01010, t3 = 5'b01011, s0 = 5'h10, s1 = 5'h11, s2 = 5'h12, s3 = 5'h13, s4 = 5'h14, s5 = 5'h15, s6 = 5'h16, s7 = 5'h17, sp = 5'b11101;
@@ -344,37 +344,39 @@ module MIPS_tb;
     MIPSTop t(clk, rst);
     assign t.in0_data = 0;
    
-    wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
+    //wire [31: 0] ALUResult = t.ALUResult, Instr = t.Instr;
     wire [31: 0] pc = t.PC[31:2];
-    wire [31: 0] pc_target = t.mips.dp.PCTarget[31:2];
-    wire [31: 0] RD1 = t.mips.dp.ReadData1D;
-    wire [31: 0] RD2 = t.mips.dp.ReadData2D;
+    //wire [31: 0] pc_target = t.mips.dp.PCTarget[31:2];
+    //wire [31: 0] RD1 = t.mips.dp.ReadData1D;
+    //wire [31: 0] RD2 = t.mips.dp.ReadData2D;
     
     wire [2:0] state = t.dmem.c.state;
     wire hit = t.dmem.c.hit;
-    wire [5:0] req_set = t.dmem.c.requestSet;
-    wire [31:0] req_tag = t.dmem.c.requestTag;
+    //wire [5:0] req_set = t.dmem.c.requestSet;
+    //wire [31:0] req_tag = t.dmem.c.requestTag;
     //wire [31: 0] writeData = t.dmem.WriteData;
     //wire [31: 0] writeAddr = t.dmem.Addr;
+    //wire [1:0] dmem_state = t.dmem.state;
+    //wire shoulde = t.dmem.should_execute;
     
-    wire [31: 0] rf [0: 31];
+    //wire [31: 0] rf [0: 31];
     
-    wire [31: 0] test_in;
+    //wire [31: 0] test_in;
     wire [31: 0] test_out;
-    wire [31: 0] req_addr = t.dmem.c.requestAddr;
-    wire taken = t.mips.dp.TakenD;
-    wire BranchTaken = t.mips.dp.BranchTaken;
+    //wire [31: 0] req_addr = t.dmem.c.requestAddr;
+    //wire taken = t.mips.dp.TakenD;
+    //wire BranchTaken = t.mips.dp.BranchTaken;
     
-    assign test_in = t.dmem.mem.RAM[`IN0_ADDR/( 1<<`BLOCK_OFFSET_WIDTH_NUM)];
+    //assign test_in = t.dmem.mem.RAM[`IN0_ADDR/( 1<<`BLOCK_OFFSET_WIDTH_NUM)];
     assign test_out = t.dmem.mem.RAM[`OUT0_ADDR/(1<<`BLOCK_OFFSET_WIDTH_NUM)];
-    generate 
-    genvar i;
-    for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
-    endgenerate
+    //generate 
+    //genvar i;
+    //for (i = 0; i < 32; i = i + 1) begin assign rf[i] = t.mips.dp.rf.RegCell[i];end
+    //endgenerate
     
     initial
     begin
-        t.mips.dp.rf.RegCell[16] = 64;
+        //t.mips.dp.rf.RegCell[16] = 64;
             
         `ROM[1] = {ADDI, r0, t0, 16'd0};
         `ROM[2] = {SB, r0, t0, `IN0_ADDR};
@@ -382,7 +384,7 @@ module MIPS_tb;
         rst = ~rst;
         #20 ;
         rst = ~rst;
-        repeat (1000) #2 clk = ~ clk;
+        repeat (2000) #2 clk = ~ clk;
     end
     
 endmodule

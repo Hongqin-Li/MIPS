@@ -221,7 +221,7 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     wire [7:0] out = out_block[block_offset+7:block_offset];
     //wire [7: 0] out = mt.dmem.mem.RAM[`OUT0_ADDR/4];
     
-    wire [31: 0] pc = mt.PC;
+    wire [31: 0] pc = mt.PC[31:2];
     
     wire [3: 0] d0 = out % 10;
     wire [3: 0] d1 = (out / 10) % 10;
@@ -240,7 +240,7 @@ module top (CLK100MHZ, SW, AN, CA, CB, CC, CD, CE, CF, CG);
     assign rst = SW[0];
     
     // Input Mapping 
-    assign mt.in0_data = SW[15:4];
+    assign mt.in0_data = SW[1] ? SW[15:4] : 0;
     assign out_block = mt.dmem.mem.RAM[blocki];
     //assign mt.dmem.iwrite = SW[0] & SW[1];
     //assign mt.dmem.iaddr = `IN0_ADDR;
