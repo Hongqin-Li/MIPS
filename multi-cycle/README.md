@@ -78,6 +78,7 @@ Now, let's have a detail look at what is happening when executing different type
   1. Branch not taken
 
      With branch not taken, our pre-fetched next instruction code in *Execute* stage is exactly what we will execute. So just jump to next instruction's *Decode* stage.
+     
   |   | Fetch  | Decode        | Execute        | Next Stage |
   | -  | ------ | ------------- | -------------- | ------------------ |
   | Current instruction | Memory | Register File | ALU(comparing) |                    |

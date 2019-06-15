@@ -1,6 +1,6 @@
 # MIPS implementation in Verilog
 
-MIPS implementations including single cycle, multi cycle, and pipeline.
+MIPS implementations including single cycle, multi cycle, pipeline and cached pipeline.
 
 
 
@@ -102,12 +102,4 @@ $31 | $ra | Return Address
 \$f20 - $f31 | - | Saved registers, preserved by subprograms
 
 
-
-## Memory-mapped I/O
-
-To make it behaves as a real CPU, I try to simulate the I/O Mapping in MIPS.
-
-- The inputs, e.g. `SW[15:4]`, are mapping directly into the Data Memory with a fixed address, decided by the designer.
-- The outputs, e.g. `seed`, is mapped at another predefined address. 
-- Then, for CPU, it only need to read Data Memory to fetch the inputs, and modify the value at specific address to govern the outputs, using `LOAD` and `STORE` instructions.
 
